@@ -6,10 +6,9 @@ namespace App\Models;
 
 class Helper {
 
-    
-    // contructor
+    // contructor 
     public function __contruct() {
-        
+        // 
     }
 
     /**
