@@ -10,6 +10,12 @@ class Helper {
         
     }
 
+    /**
+     * normalize string
+     *
+     * @param  String  $name 
+     * @return String
+     */
     public static function normalizeFabricName($name) {
         return substr($name, 9);
     }
