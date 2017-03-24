@@ -36,8 +36,7 @@ class Helper
             
         }       
         
-        // very strange, switch does not process 0 as a input
-        // so I have to check out of the switch statement
+       
         if($amount < 999){ $format = $amount.",00";}         
         
         return $format;        
@@ -50,10 +49,7 @@ class Helper
         return round($amount * $discount);
     }
     
-//    public static function calculateShipping( $amount, $distancecoeff = null, $numberofitem = null, $totalvolume = null ){
-//        
-//        return $amount * 0.15;
-//    }
+
     
     public static function sum( $amount1 , $amount2 ){
         
