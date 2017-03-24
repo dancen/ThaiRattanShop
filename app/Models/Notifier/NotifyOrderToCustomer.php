@@ -139,7 +139,7 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
         $message .= "</table>";
         $message .= "</div>";
         $message .= "</body></html>";
-        $this->message .= $message;
+        $this->message .= wordwrap($message,70);
     }   
 
     private function buildCart( $helper ) {
