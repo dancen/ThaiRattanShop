@@ -103,7 +103,7 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
     public function buildBody( $helper ) {
 
         $message = "<html><body><br>";
-        $message .= "<div style='font-family: Arial;font-size:14px;padding-top:20px;padding-left:20px;'>";
+        $message .= "<div style='font-family: Arial;font-size:14px;padding-top:20px;padding-left:20px;max-width:800px;'>";
         $message .= "<span style='font-size:18px;font-weight:bold;margin-top:30px;'>Thank You ".$this->order->first_name."!</span><br><br>";
         $message .= "Your order number is: <b>" . $this->coupon . "-" . $this->order->id . "</b>. Order placed with Coupon code: <b>" . $this->coupon . "</b> - " . $this->discount . "%<br>";
         $message .= "We received your order and we will contact you as soon as possible to confirm products and colors chosen.";
