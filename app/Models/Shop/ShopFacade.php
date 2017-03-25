@@ -341,9 +341,22 @@ class ShopFacade {
              */
             // retrieving the areas to fill the delivery combo 
             $areas = \App\Models\Delivery\Delivery::findAll();
+            
+            /**
+             * if delivery areas that populate the html select element
+             * is not present in shared data it will be retrieved from
+             * database. 
+             *
+             * @return \App\Models\Product\Delivery $areas
+             */
+            // retrieving the areas to fill the delivery combo 
+            $allfields = \App\Models\Delivery\Delivery::findComplete();
 
-            // store delivery areas in shopper object
+            // store delivery areas in shopper object form html select
             $this->shopper->setDeliveryAreas($areas);
+            
+            // store all fields delivery areas in shopper object for delivery cost calculation
+            $this->shopper->setDeliveryAreasComplete($allfields);
         }
 
         // return the shopper
@@ -441,6 +454,81 @@ class ShopFacade {
         // return the shopper
         return $this;
     }
+    
+    
+    
+    /**
+     * setDeliveryChangedAjax - set a new delivery area and provide array to the view 
+     *
+     * @param  \App\Models\Delivery\Delivery
+     * @param  \App\Models\Cart\Cart
+     * @return array
+     */
+    public function setDeliveryChangedAjax( $areaobj, $cart ) {
+
+        // calculate delivery cost and store in session
+        $calculator = new \App\Models\Delivery\StandardDeliveryAreaCalculator($areaobj, $cart);
+
+        // calculate the delivery cost
+        $delivery_cost = $calculator->calculateDeliveryCost();
+        
+        $this->shopper->setDeliveryArea($areaobj->area);
+        $this->shopper->setDeliveryCost($delivery_cost);
+        
+        $cart_total_formatted = \App\Models\Helper::formatCurrency( \App\Models\Helper::calculateDiscount( $cart->getAmount(), $this->shopper->getDiscount() ));
+        $delivery_cost_formatted = \App\Models\Helper::formatCurrency( $this->shopper->getDeliveryCost() );
+        $grand_total_formatted = \App\Models\Helper::formatCurrency( \App\Models\Helper::sum( \App\Models\Helper::calculateDiscount( $cart->getAmount(), $this->shopper->getDiscount() ) , $this->shopper->getDeliveryCost() ) );
+        
+        
+        // create the response array
+        $arraycost = array("delivery_area" => $this->shopper->getDeliveryArea(),
+                           "delivery_cost" => $delivery_cost_formatted,
+                           "cart_total" => $cart_total_formatted,
+                           "grand_total" => $grand_total_formatted );
+
+        // return the array
+        return $arraycost;
+    }
+    
+    
+    
+    /**
+     * setQuantityChangedAjax - set a new quantity and provide array to the view 
+     *
+     * @param  \App\Models\Delivery\Delivery
+     * @param  \App\Models\Cart\Cart
+     * @return array
+     */
+    public function setQuantityChangedAjax( $areaobj , $cart ) {
+        
+        // calculate delivery cost and store in session
+        $calculator = new \App\Models\Delivery\StandardDeliveryAreaCalculator($areaobj, $cart);
+
+        // calculate the delivery cost
+        $delivery_cost = $calculator->calculateDeliveryCost();
+        
+        $this->shopper->setDeliveryArea($areaobj->area);
+        $this->shopper->setDeliveryCost($delivery_cost);        
+        
+        // format values to show in view
+        $cart_total_price_list_formatted = \App\Models\Helper::formatCurrency( $cart->getAmount() );
+        $cart_total_formatted = \App\Models\Helper::formatCurrency( \App\Models\Helper::calculateDiscount( $cart->getAmount(), $this->shopper->getDiscount() ));
+        $delivery_cost_formatted = \App\Models\Helper::formatCurrency( $this->shopper->getDeliveryCost() );
+        $grand_total_formatted = \App\Models\Helper::formatCurrency( \App\Models\Helper::sum( \App\Models\Helper::calculateDiscount( $cart->getAmount(), $this->shopper->getDiscount() ) , $this->shopper->getDeliveryCost() ) );
+        
+        
+        // create the response array
+        $arraycost = array("delivery_area" => $this->shopper->getDeliveryArea(),
+                           "delivery_cost" => $delivery_cost_formatted,
+                           "cart_total" => $cart_total_formatted,
+                           "grand_total" => $grand_total_formatted,
+                           "cart_total_price_list" => $cart_total_price_list_formatted,
+                           "cart_number_of_items" => $cart->getNumOfItems() );
+
+        // return the array
+        return $arraycost;
+    }
+    
 
     /**
      * removeCart - remove the Item from Cart and update the shopper object

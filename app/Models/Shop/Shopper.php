@@ -18,6 +18,7 @@ class Shopper implements ShopperInterface {
     private $coupon_code;
     private $email;
     private $delivery_areas;
+    private $delivery_areas_complete;
     private $delivery_area_id;
     private $delivery_area;
     private $last_order;
@@ -97,6 +98,14 @@ class Shopper implements ShopperInterface {
 
     public function getDeliveryAreas() {
         return $this->delivery_areas;
+    }    
+    
+    public function setDeliveryAreasComplete($delivery_areas_complete) {
+        $this->delivery_areas_complete = $delivery_areas_complete;
+    }
+
+    public function getDeliveryAreasComplete() {
+        return $this->delivery_areas_complete;
     }
 
     public function setEmail($email) {

@@ -36,6 +36,12 @@ Route::post('/cart-update', 'ShopController@updateCart')->name('cart-update');
 // route to update the shopping cart (app/views/cart.blade.php)
 Route::post('/cart-delivery', 'ShopController@deliveryCart')->name('cart-delivery');
 
+// route to update the shopping cart (app/views/cart.blade.php)
+Route::get('/cart-delivery-changed', 'ShopController@deliveryCartChangedAjax')->name('cart-delivery-changed');
+
+// route to update the shopping cart (app/views/cart.blade.php)
+Route::get('/cart-quantity-changed', 'ShopController@quantityCartChangedAjax')->name('cart-quantity-changed');
+
 // route for the shopping cart page (app/views/cart.blade.php)
 Route::post('/cart-remove', 'ShopController@removeCart')->name('cart-remove');
 
@@ -62,6 +68,9 @@ Route::get('/staff-only', 'ShopController@staff')->name('staff-only');
 
 // route for the product not found (app/views/notfound.blade.php)
 Route::get('/not-found', 'ShopController@notFound')->name('not-found');
+
+// route to flush memory data
+Route::get('/restart', 'ShopController@restart')->name('restart');
 
 //Clear Cache facade value:
 Route::get('/clear-cache', function() {

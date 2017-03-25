@@ -15,6 +15,10 @@ class DeliveryRepository extends BaseDelivery
        return parent::orderBy('area', 'ASC')->get()->pluck('area', 'id');
     }
     
+     public static function findComplete(){
+       return parent::orderBy('area', 'ASC')->get();
+    }
+    
     public static function findByAreaId( $area ){
         return parent::find($area);
     }

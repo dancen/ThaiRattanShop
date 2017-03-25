@@ -36,7 +36,7 @@ class ShopController extends Controller {
     public function index(Request $request) {
 
 
-      
+
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -53,9 +53,9 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -68,9 +68,9 @@ class ShopController extends Controller {
           | category::findAll() retrieve all categories from DB
           |
          */
-        
-        
-         try {
+
+
+        try {
 
             /**
              * findAll() method retrieve all categories
@@ -85,8 +85,8 @@ class ShopController extends Controller {
                 //throw exception if email is not valid
                 throw new \App\Exceptions\CategoriesNotFoundException();
             }
-           
-            $manager->updateShopper( $shop->getShopper() );
+
+            $manager->updateShopper($shop->getShopper());
         } catch (\App\Exceptions\CategoriesNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
@@ -116,7 +116,7 @@ class ShopController extends Controller {
     public function category(Request $request, $slug) {
 
 
-        
+
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -133,9 +133,9 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
-        
+
 
         /*
           |--------------------------------------------------------------------------
@@ -159,7 +159,7 @@ class ShopController extends Controller {
                 throw new \App\Exceptions\CategoryNotFoundException();
             }
 
-            $manager->updateShopper( $shop->getShopper() );
+            $manager->updateShopper($shop->getShopper());
         } catch (\App\Exceptions\CategoryNotFoundException $e) {
             // redirect to page not found
 
@@ -189,7 +189,7 @@ class ShopController extends Controller {
                 throw new \App\Exceptions\ProductNotFoundException();
             }
 
-            $manager->updateShopper( $shop->getShopper() );
+            $manager->updateShopper($shop->getShopper());
         } catch (\App\Exceptions\ProductNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
@@ -221,7 +221,7 @@ class ShopController extends Controller {
     public function showProduct(Request $request, $slug) {
 
 
-          /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -237,7 +237,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -267,7 +267,7 @@ class ShopController extends Controller {
                 throw new \App\Exceptions\ProductNotFoundException();
             }
 
-            $manager->updateShopper( $shop->getShopper() );
+            $manager->updateShopper($shop->getShopper());
         } catch (\App\Exceptions\ProductNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
@@ -300,7 +300,7 @@ class ShopController extends Controller {
      */
     public function addToCart(Request $request) {
 
-  /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -316,7 +316,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -336,7 +336,7 @@ class ShopController extends Controller {
          */
 
         $shop->setProduct($request->get("product"));
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
         /*
           |--------------------------------------------------------------------------
@@ -360,7 +360,7 @@ class ShopController extends Controller {
         );
 
         $shop->populateProduct($product_params);
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -410,7 +410,7 @@ class ShopController extends Controller {
         );
 
         $shop->updateCart($update_params);
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
         /*
           |--------------------------------------------------------------------------
@@ -424,7 +424,7 @@ class ShopController extends Controller {
          */
 
         $shop->setDeliveryAreaId();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -437,7 +437,7 @@ class ShopController extends Controller {
          */
 
         $shop->setDeliveryChanged();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -479,7 +479,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -495,7 +495,7 @@ class ShopController extends Controller {
         // remove item from the cart and update the shopper object 
         $item_id = $request->get("item_id");
         $shop->removeItem($item_id);
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
 
@@ -521,7 +521,7 @@ class ShopController extends Controller {
      */
     public function deliveryCart(Request $request) {
 
-/*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -537,21 +537,21 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
         /*
           |--------------------------------------------------------------------------
-          | DELIVERY CHANGED EVENT
+          | DELIVERY CHANGED 
           |--------------------------------------------------------------------------
           |
-          | DeliveryChangedListener retrieves the delivery area object
+          | setDeliveryChanged retrieves the delivery area object
           | and calculates the delivery cost saving data in the shared data
          */
 
         $shop->setDeliveryChanged($request->get('co_province'));
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
         /*
           |--------------------------------------------------------------------------
@@ -575,7 +575,7 @@ class ShopController extends Controller {
      */
     public function updateCart(Request $request) {
 
-       /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -591,7 +591,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -612,7 +612,7 @@ class ShopController extends Controller {
         );
 
         $shop->updateItem($item_params);
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -654,7 +654,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
         try {
@@ -697,7 +697,7 @@ class ShopController extends Controller {
     public function checkout(Request $request) {
 
 
-/*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -713,7 +713,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
         /*
@@ -746,7 +746,7 @@ class ShopController extends Controller {
         // or a subscriber that made a purchase. In this case 
         // the system pre-fill checkout data with the last order                      
         $shop->setLastOrder();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         if (!$shop->getShopper()->getLastOrder()) {
@@ -764,7 +764,7 @@ class ShopController extends Controller {
      */
     public function pay(Request $request) {
 
-/*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -780,7 +780,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -878,7 +878,7 @@ class ShopController extends Controller {
 
 
         $shop->buildOrder($order_params);
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
         /*
          * payment code from external service
@@ -887,7 +887,7 @@ class ShopController extends Controller {
 
         // payment service calls
         $shop->setPaymentCode();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         /*
@@ -911,7 +911,7 @@ class ShopController extends Controller {
      */
     public function close(Request $request) {
 
-/*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -927,7 +927,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
 
@@ -980,7 +980,7 @@ class ShopController extends Controller {
                 throw new \App\Exceptions\OrderNotFoundException();
             }
 
-            $manager->updateShopper( $shop->getShopper() );
+            $manager->updateShopper($shop->getShopper());
         } catch (\App\Exceptions\OrderNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
@@ -988,7 +988,7 @@ class ShopController extends Controller {
 
 
         $shop->savePurchase();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
         /*
           |--------------------------------------------------------------------------
@@ -1000,7 +1000,7 @@ class ShopController extends Controller {
          */
 
         $shop->updateCoupon();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
 
@@ -1065,7 +1065,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
         /*
@@ -1078,7 +1078,7 @@ class ShopController extends Controller {
          */
 
         $shop->resetShopper();
-        $manager->updateShopper( $shop->getShopper() );
+        $manager->updateShopper($shop->getShopper());
 
 
         //        
@@ -1093,7 +1093,7 @@ class ShopController extends Controller {
      */
     public function tester(Request $request) {
 
-       /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -1109,7 +1109,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
         //        
@@ -1124,7 +1124,7 @@ class ShopController extends Controller {
      */
     public function staff(Request $request) {
 
-       /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -1140,7 +1140,7 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager( new Memento() );
+        $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
 
         //        
@@ -1159,6 +1159,190 @@ class ShopController extends Controller {
         return \View::make('errors/notfound', array("message" => $request->get("message")));
     }
 
+    /**
+     * deliveryCartChanged is the method to calculate
+     * the shipping cost via ajax request.
+     *
+     * @param  String
+     * @return JSON
+     */
+    public function deliveryCartChangedAjax( Request $request ) {
+
+        $id = $request->input("id"); 
+
+        /*
+          |--------------------------------------------------------------------------
+          | SHOP FACADE INSTANCE
+          |--------------------------------------------------------------------------
+          |
+          | The ShopFacade class manage all functionalities of the shop
+          | hiding complexity and logic in a single interface
+          |
+         */
+
+        /**
+         * ShopManager()
+         *
+         * @param App\Models\Memento\Memento
+         * @return null
+         */
+        $manager = new ShopManager(new Memento());
+        $shop = $manager->loadShop();
+
+
+        $cart = $shop->getShopper()->getCart();
+
+        // check if the user has init a shopping cart
+        // or cart is empty
+        if ($cart == null || ($cart != null && count($cart->getCollection()) == 0)) {
+            // return error
+            return response()->json(json_decode(json_encode(array('error' => 'Cart Empty'))));
+        }
+
+
+        // retrieve areas from shared memory
+        $areas = $shop->getShopper()->getDeliveryAreasComplete();
+
+        // find and instanciate the delivery area 
+        $areaobj = null;
+        foreach ($areas as $area) {
+            if ($area->id == $id) {
+                $areaobj = $area;
+                break;
+            }
+        }
+        
+        if ($areaobj == null) {
+            // return error
+            return response()->json(json_decode(json_encode(array('error' => 'Delivery area not found'))));
+        }
+        
+        /*
+          |--------------------------------------------------------------------------
+          | DELIVERY CHANGED 
+          |--------------------------------------------------------------------------
+          |
+          | setDeliveryChangedAjax retrieves the delivery area object
+          | and calculates the delivery cost saving data in the shared data
+         */
+        
+        $arraycost = $shop->setDeliveryChangedAjax( $areaobj , $cart );
+        $manager->updateShopper($shop->getShopper());
+        
+        return response()->json($arraycost);
+    }
     
+    
+    
+    /**
+     * quantityCartChangedAjax is the method to change quantity of
+     *  product in the cart and calculate the shipping cost via ajax request.
+     *
+     * @param  null
+     * @return JSON
+     */
+    public function quantityCartChangedAjax( Request $request ) {
+
+
+        /*
+          |--------------------------------------------------------------------------
+          | SHOP FACADE INSTANCE
+          |--------------------------------------------------------------------------
+          |
+          | The ShopFacade class manage all functionalities of the shop
+          | hiding complexity and logic in a single interface
+          |
+         */
+
+        /**
+         * ShopManager()
+         *
+         * @param App\Models\Memento\Memento
+         * @return null
+         */
+        $manager = new ShopManager(new Memento());
+        $shop = $manager->loadShop();
+
+
+        $cart = $shop->getShopper()->getCart();
+
+        // check if the user has init a shopping cart
+        // or cart is empty
+        if ($cart == null || ($cart != null && count($cart->getCollection()) == 0)) {
+            // return error
+            return response()->json(json_decode(json_encode(array('error' => 'Cart Empty'))));
+        }
+
+        
+        /*
+          |--------------------------------------------------------------------------
+          | QUANTITY CHANGED 
+          |--------------------------------------------------------------------------
+          |
+          | setQuantityChangedAjax retrieves the cart object, change the quantity 
+          | of a specific item in the cart and calculates the delivery cost saving 
+          | data in the shared data
+         */
+        
+        // retrieve the cart from shopper object and update the cart
+        $item_params = array(
+            "item_id" => $request->input("item_id"), 
+            "qty" => $request->input("qty"),
+        );
+        
+        $shop->updateItem($item_params);
+        $manager->updateShopper($shop->getShopper());
+        
+        // retrieve areas from shared memory
+        $areas = $shop->getShopper()->getDeliveryAreasComplete();
+
+        // find and instanciate the delivery area 
+        $areaobj = null;
+        foreach ($areas as $area) {
+            if ($area->area == $shop->getShopper()->getDeliveryArea()) {
+                $areaobj = $area;
+                break;
+            }
+        }        
+        
+        $arraycost = $shop->setQuantityChangedAjax( $areaobj , $shop->getShopper()->getCart() );
+        $manager->updateShopper($shop->getShopper());
+        
+        return response()->json($arraycost);
+    }
+    
+    
+
+    /**
+     * restart reset all data in the shop
+     *
+     * @param  null
+     * @return \Illuminate\Http\Response
+     */
+    public function restart() {
+
+
+        /*
+          |--------------------------------------------------------------------------
+          | SHOP FACADE INSTANCE
+          |--------------------------------------------------------------------------
+          |
+          | The ShopFacade class manage all functionalities of the shop
+          | hiding complexity and logic in a single interface
+          |
+         */
+
+        /**
+         * ShopManager()
+         *
+         * @param App\Models\Memento\Memento
+         * @return null
+         */
+        $manager = new ShopManager(new Memento());
+        $manager->quit();
+
+        // return the template
+        return Redirect::action('ShopController@index');
+    }
 
 }

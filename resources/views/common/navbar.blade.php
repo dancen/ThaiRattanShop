@@ -42,7 +42,7 @@
 
                                 @if ($cart->getCollection() > 0)
 
-                                    <span class="items-number">{{ $cart->getNumOfItems() }}</span>
+                                    <span class="items-number"><span id="number-of-items-navbar-ajax">{{ $cart->getNumOfItems() }}</span></span>
 
                                 @else 
 
