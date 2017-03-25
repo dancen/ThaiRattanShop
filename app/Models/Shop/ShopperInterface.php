@@ -6,7 +6,7 @@ namespace App\Models\Shop;
 
 interface ShopperInterface
 {
-    
+        
     public function setOrder($order);
     
     public function getOrder();
@@ -26,7 +26,5 @@ interface ShopperInterface
     public function setCategory($category);
 
     public function getCategory();
-  
-   
       
 }
