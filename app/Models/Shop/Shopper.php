@@ -170,5 +170,13 @@ class Shopper implements ShopperInterface {
     public function getDeliveryCost() {
         return $this->delivery_cost;
     }
+    
+    public function setUser($user) {
+        return null;
+    }
+
+    public function getUser() {
+        return null;
+    }
 
 }
