@@ -229,7 +229,7 @@
                 $("#grand-total-ajax").text(json.grand_total);
             },
             error: function (msg) {
-                alert('error');
+                console.log('#error');
             },
         });
 
@@ -257,7 +257,7 @@
                 $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
             },
             error: function (msg) {
-                alert("error");
+                console.log('#error');
             }
         });
 

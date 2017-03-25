@@ -36,13 +36,14 @@ class ShopManager
         // if the shopper not in memory
         // we create and initialize a new shop
         if (!$shopper) {
-            $shopper = new Shopper();
-            $shop = new ShopFacade( $shopper );
+            $shop = new ShopFacade( new Shopper() );
             $shop->init();
             return $shop;
+        } else {
+            return new ShopFacade( $shopper );
         }
         
-        return new ShopFacade( $shopper );
+        
     }
     
     
@@ -62,7 +63,6 @@ class ShopManager
     public function quit() {
         
         $this->memento->delete( "Shopper" );
-        $this->memento->set( "Shopper", new Shopper() );
     }
     
   

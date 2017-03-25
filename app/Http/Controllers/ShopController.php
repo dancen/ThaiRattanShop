@@ -1190,6 +1190,7 @@ class ShopController extends Controller {
         $shop = $manager->loadShop();
 
 
+        // retrieve the cart from the shopper
         $cart = $shop->getShopper()->getCart();
 
         // check if the user has init a shopping cart

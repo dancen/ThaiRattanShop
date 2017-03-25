@@ -339,7 +339,7 @@ class ShopFacade {
              *
              * @return \App\Models\Product\Delivery $areas
              */
-            // retrieving the areas to fill the delivery combo 
+            
             $areas = \App\Models\Delivery\Delivery::findAll();
             
             /**
@@ -349,7 +349,7 @@ class ShopFacade {
              *
              * @return \App\Models\Product\Delivery $areas
              */
-            // retrieving the areas to fill the delivery combo 
+           
             $allfields = \App\Models\Delivery\Delivery::findComplete();
 
             // store delivery areas in shopper object form html select
@@ -797,6 +797,7 @@ class ShopFacade {
         $shopper = new Shopper();
         $shopper->setCouponCode($this->shopper->getCouponCode());
         $shopper->setDeliveryAreas($this->shopper->getDeliveryAreas());
+        $shopper->setDeliveryAreasComplete($this->shopper->getDeliveryAreasComplete());
         $shopper->setDeliveryArea($this->shopper->getDeliveryArea());
         $shopper->setCategories($this->shopper->getCategories());
 
