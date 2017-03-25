@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="robots" content="index, follow">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="Shopping Cart, Thai Rattan furniture, indoors, outdoors, best quality, affordable price, natural rattan, best comfort, rattan wood and cotton" />
         <meta property="og:description" content="Shopping Cart, Thai Rattan collection: sofas, armchairs, tables and chairs. Design, elegance , natural rattan and painted rattan." />

@@ -73,9 +73,9 @@
 
 
                             {{ Form::open(array('url' => '/cart-update','method'=>'POST', 'id' => 'form-cart-update-'.$item->getCartIndex())) }}
-                            <input type="hidden" name="item_id" id="item_id" value="{{ $item->getCartIndex() }}">
+                            <input type="hidden" name="item_id_{{ $item->getCartIndex() }}" id="item_id_{{ $item->getCartIndex() }}" value="{{ $item->getCartIndex() }}">
                             <?php //$js = "$('#form-cart-update-" . $item->getCartIndex() . "').submit();"; ?>
-                            <?php $js = "updateQuantity( document.getElementById('item_id').value , this.options[this.selectedIndex].value )"; ?>  
+                            <?php $js = "updateQuantity( document.getElementById('item_id_".$item->getCartIndex()."').value , document.getElementById('quantity_".$item->getCartIndex()."').options[document.getElementById('quantity_".$item->getCartIndex()."').selectedIndex].value )"; ?>  
                             {{ Form::select('qty', 
                                         array(
                                               $item->getQuantity() => $item->getQuantity(),
@@ -92,6 +92,7 @@
                                               ),
                                               $item->getQuantity(),
                                               array(
+                                                    'id' => 'quantity_'.$item->getCartIndex(),
                                                     'class' => 'form-control',
                                                     'style' => 'border: 1px solid #ccc;',
                                                     'onchange' => $js
@@ -157,7 +158,7 @@
 
                         {{ Form::open(array('url' => '/cart-delivery','method'=>'POST', 'id' => 'form-cart-calculate-shipping')) }}
                         <?php //$cd = "$('#form-cart-calculate-shipping').submit();"; ?> 
-                        <?php $cd = "calculateShippingCost( this.options[this.selectedIndex].value )"; ?>                         
+                        <?php $cd = "calculateShippingCost( document.getElementById('co_province').options[document.getElementById('co_province').selectedIndex].value )"; ?>                         
                         {{ Form::select('co_province',
                                         $shopper->getDeliveryAreas(),
                                         null,
@@ -180,8 +181,6 @@
                     <p>Shipping cost: &#3647; <span id="delivery-cost-ajax">{{ Helper::formatCurrency( $shopper->getDeliveryCost() ) }}</span></p>
                     <div class="catalogue-price" style="text-align:left;" id="cart-total">&#3647; <span id="grand-total-ajax">{{ Helper::formatCurrency( Helper::sum( Helper::calculateDiscount( $cart->getAmount(), $shopper->getDiscount() ) , $shopper->getDeliveryCost() ) ) }}</span></div>
 
-
-                    <a href="javascript:void(0);" onclick="calculateShippingCost();">test area</a>
 
                     <a href="./index" class="btn btn-default btn-lg btn-block">Continue Shopping</a><br>
 
@@ -216,9 +215,7 @@
 
     function calculateShippingCost(area_id) {
 
-        $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')}
-        });
+        
         $.ajax({
             url: '{!!route("cart-delivery-changed")!!}',
             type: 'GET',
@@ -241,10 +238,8 @@
 
     function updateQuantity( id , q ) {
 
-        $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')}
-        });
-        jQuery.ajax({
+        
+        $.ajax({
             url: '{!!route("cart-quantity-changed")!!}',
             type: 'GET',
             data: {
@@ -261,7 +256,7 @@
                 $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
                 $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
             },
-            error: function (xhr, b, c) {
+            error: function (msg) {
                 alert("error");
             }
         });

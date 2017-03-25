@@ -10,7 +10,7 @@ final class FabricValidatorType implements ValidatorTypeInterface
     
    public function getName(){
                       
-        return App\Models\Validator\Product\FabricValidator::class;
+        return \App\Models\Validator\Product\FabricValidator::class;
     }
           
 }
