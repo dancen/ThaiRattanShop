@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Shop\ShopFacade;
 use App\Models\Shop\Shopper;
+use App\Models\Memento\Memento;
 
 class ShopController extends Controller {
-    
-    
     /*
      * SUMMARY OF FUNCTIONALITIES
      * 
@@ -24,9 +23,9 @@ class ShopController extends Controller {
      * no online payment implemented yet
      * 
      */
-    
-      // initialize middlewares
-    public function __construct() {        
+
+    // initialize middlewares
+    public function __construct() {
         
     }
 
@@ -37,6 +36,8 @@ class ShopController extends Controller {
      */
     public function index(Request $request) {
 
+
+      
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -53,10 +54,9 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        $shop->init()->updateShopper( $request );
-
-       
+        $shop = $this->loadShop($request);
+        $shop->init();
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
@@ -69,13 +69,33 @@ class ShopController extends Controller {
           | category::findAll() retrieve all categories from DB
           |
          */
-
-        $shop->setProductCategories()->updateShopper( $request );
-
-
         
+        
+         try {
 
-     
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            $shop = $shop->setProductCategories();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\CategoriesNotFoundException();
+            }
+           
+            $this->updateShopper( $shop->getShopper() );
+        } catch (\App\Exceptions\CategoriesNotFoundException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
+
+
+
+
         /*
           |--------------------------------------------------------------------------
           | RETURN VIEW INDEX.BLADE.PHP
@@ -113,8 +133,7 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        
-        $shop = $this->loadShop( $request );
+        $shop = $this->loadShop($request);
 
         /*
           |--------------------------------------------------------------------------
@@ -126,27 +145,26 @@ class ShopController extends Controller {
           | product image and on the product name
           | setCategory() retrieve the category from DB  and set in shopper object
          */
-        
-         try {
-             
-             $shop = $shop->setCategory( $slug );            
+
+        try {
+
+            $shop = $shop->setCategory($slug);
 
             //check if
-            if ( $shop == null ) {
-                
+            if ($shop == null) {
+
                 //throw exception if category is null
                 throw new \App\Exceptions\CategoryNotFoundException();
             }
-            
-            $shop->updateShopper( $request );
 
+            $this->updateShopper( $shop->getShopper() );
         } catch (\App\Exceptions\CategoryNotFoundException $e) {
             // redirect to page not found
-            
+
             return $e->handle();
         }
-       
-        
+
+
 
 
         /*
@@ -157,8 +175,8 @@ class ShopController extends Controller {
           | the setProducts() method retrieves all products by category id
           |
          */
-        
-        
+
+
         try {
 
             $shop = $shop->setProducts();
@@ -169,13 +187,13 @@ class ShopController extends Controller {
                 throw new \App\Exceptions\ProductNotFoundException();
             }
 
-            $shop->updateShopper( $request );
+            $this->updateShopper( $shop->getShopper() );
         } catch (\App\Exceptions\ProductNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
         }
 
-        
+
 
 
 
@@ -200,8 +218,8 @@ class ShopController extends Controller {
      */
     public function showProduct(Request $request, $slug) {
 
-        
-         /*
+
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -217,10 +235,10 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
-        
-        
+        $shop = $this->loadShop($request);
+
+
+
 
         /*
           |--------------------------------------------------------------------------
@@ -234,28 +252,27 @@ class ShopController extends Controller {
           | Product::findProductBySlug() retrieve the product from DB
           |
          */
-        
-        
+
+
         try {
 
-            $shop = $shop->setProduct( $slug );
+            $shop = $shop->setProduct($slug);
 
             //check if
             if ($shop == null) {
                 //throw exception if product is not valid
                 throw new \App\Exceptions\ProductNotFoundException();
             }
-           
-            $shop->updateShopper( $request );
-            
+
+            $this->updateShopper( $shop->getShopper() );
         } catch (\App\Exceptions\ProductNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
         }
-        
-        
 
-       
+
+
+
 
 
 
@@ -280,8 +297,8 @@ class ShopController extends Controller {
      */
     public function addToCart(Request $request) {
 
-        
-         /*
+
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -297,10 +314,10 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
-        
-        
+        $shop = $this->loadShop($request);
+
+
+
         /*
           |--------------------------------------------------------------------------
           | RETRIEVING PRODUCT BY SLUG
@@ -314,8 +331,9 @@ class ShopController extends Controller {
           |
          */
 
-       $shop->setProduct( $request->get("product") )->updateShopper( $request );
-        
+        $shop->setProduct($request->get("product"));
+        $this->updateShopper( $shop->getShopper() );
+
         /*
           |--------------------------------------------------------------------------
           | POPULATING THE PRODUCT OBJECT
@@ -330,14 +348,15 @@ class ShopController extends Controller {
 
         // populate the product object with data
         // entered by the user from the product detail form
-       
+
         $product_params = array(
-                        "qty" => $request->get('qty'),
-                        "rc" => $request->get('rc'),
-                        "fc" => $request->get('fc')
-                );
-        
-        $shop->populateProduct( $product_params )->updateShopper( $request );
+            "qty" => $request->get('qty'),
+            "rc" => $request->get('rc'),
+            "fc" => $request->get('fc')
+        );
+
+        $shop->populateProduct($product_params);
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
@@ -350,9 +369,9 @@ class ShopController extends Controller {
           | All the classes involved resides into the App\Models\Validator Package
           |
          */
-        
+
         $product = $shop->getShopper()->getProduct();
-        
+
         try {
 
 
@@ -385,8 +404,9 @@ class ShopController extends Controller {
         $update_params = array(
             "couponcode" => $request->get('couponcode'),
         );
-        
-         $shop->updateCart( $update_params )->updateShopper( $request );
+
+        $shop->updateCart($update_params);
+        $this->updateShopper( $shop->getShopper() );
 
         /*
           |--------------------------------------------------------------------------
@@ -399,19 +419,21 @@ class ShopController extends Controller {
           | before creating the cart
          */
 
-         $shop->setDeliveryAreaId()->updateShopper( $request );
+        $shop->setDeliveryAreaId();
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
           |--------------------------------------------------------------------------
-          | DELIVERY CHANGED 
+          | DELIVERY CHANGED
           |--------------------------------------------------------------------------
           |
           | DeliveryChangedListener retrieves the delivery area object
           | and calculates the delivery cost saving data in the shopper object
          */
 
-        $shop->setDeliveryChanged()->updateShopper( $request );
+        $shop->setDeliveryChanged();
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
@@ -422,8 +444,8 @@ class ShopController extends Controller {
           | return the template with parameters
           |
          */
-        
-              
+
+
         // return the template
         return \View::make('cart', array("shopper" => $shop->getShopper()));
     }
@@ -437,7 +459,7 @@ class ShopController extends Controller {
     public function removeCart(Request $request) {
 
 
-          /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -453,9 +475,9 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
-      
+        $shop = $this->loadShop($request);
+
+
         /*
           |--------------------------------------------------------------------------
           | REMOVING THE ITEM FROM THE CART
@@ -467,7 +489,8 @@ class ShopController extends Controller {
 
         // remove item from the cart and update the shopper object 
         $item_id = $request->get("item_id");
-        $shop->removeItem( $item_id )->updateShopper( $request );
+        $shop->removeItem($item_id);
+        $this->updateShopper( $shop->getShopper() );
 
 
 
@@ -494,7 +517,7 @@ class ShopController extends Controller {
     public function deliveryCart(Request $request) {
 
 
-         /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -510,8 +533,8 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
+        $shop = $this->loadShop($request);
+
 
         /*
           |--------------------------------------------------------------------------
@@ -521,8 +544,9 @@ class ShopController extends Controller {
           | DeliveryChangedListener retrieves the delivery area object
           | and calculates the delivery cost saving data in the shared data
          */
-        
-          $shop->setDeliveryChanged( $request->get('co_province') )->updateShopper( $request );
+
+        $shop->setDeliveryChanged($request->get('co_province'));
+        $this->updateShopper( $shop->getShopper() );
 
         /*
           |--------------------------------------------------------------------------
@@ -535,7 +559,7 @@ class ShopController extends Controller {
 
 
         // return the template
-        return \View::make('cart' , array("shopper" => $shop->getShopper()));
+        return \View::make('cart', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -562,8 +586,8 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
+        $shop = $this->loadShop($request);
+
 
         /*
           |--------------------------------------------------------------------------
@@ -577,11 +601,12 @@ class ShopController extends Controller {
 
         // retrieve the cart from shopper object and update the cart
         $item_params = array(
-                        "item_id" => $request->get("item_id"),
-                        "qty" => $request->get("qty"),
-                        );
-        
-        $shop->updateItem( $item_params )->updateShopper( $request );
+            "item_id" => $request->get("item_id"),
+            "qty" => $request->get("qty"),
+        );
+
+        $shop->updateItem($item_params);
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
@@ -595,7 +620,7 @@ class ShopController extends Controller {
 
 
         // return the template
-        return \View::make('cart' , array("shopper" => $shop->getShopper()));
+        return \View::make('cart', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -607,7 +632,7 @@ class ShopController extends Controller {
     public function showCart(Request $request) {
 
 
-         /*
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -623,11 +648,11 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
+        $shop = $this->loadShop($request);
+
         //$shopper = $shop->getShopper();
-        
-         try {
+
+        try {
 
             $cart = $shop->getShopper()->getCart();
 
@@ -655,7 +680,7 @@ class ShopController extends Controller {
 
 
         // return the template
-        return \View::make('cart' , array("shopper" => $shop->getShopper()));
+        return \View::make('cart', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -666,9 +691,9 @@ class ShopController extends Controller {
      */
     public function checkout(Request $request) {
 
-        
-        
-         /*
+
+
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -684,7 +709,7 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
+        $shop = $this->loadShop($request);
 
         /*
           |--------------------------------------------------------------------------
@@ -715,13 +740,14 @@ class ShopController extends Controller {
         // when the user go to checkout can be a new subscriber
         // or a subscriber that made a purchase. In this case 
         // the system pre-fill checkout data with the last order                      
-        $shop->setLastOrder()->updateShopper( $request );
-        
+        $shop->setLastOrder();
+        $this->updateShopper( $shop->getShopper() );
+
 
         if (!$shop->getShopper()->getLastOrder()) {
-            return \View::make('firstcheckout' , array("shopper" => $shop->getShopper()));
+            return \View::make('firstcheckout', array("shopper" => $shop->getShopper()));
         } else {
-            return \View::make('nextcheckout' , array("shopper" => $shop->getShopper()));
+            return \View::make('nextcheckout', array("shopper" => $shop->getShopper()));
         }
     }
 
@@ -732,9 +758,9 @@ class ShopController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function pay(Request $request) {
-        
-        
-          /*
+
+
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -750,9 +776,9 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
-        
+        $shop = $this->loadShop($request);
+
+
 
         /*
           |--------------------------------------------------------------------------
@@ -767,7 +793,7 @@ class ShopController extends Controller {
         try {
 
 
-             $coupon = $shop->getShopper()->getCouponCode();
+            $coupon = $shop->getShopper()->getCouponCode();
 
             // check if the shopper object has a coupon
             if ($coupon == "") {
@@ -831,22 +857,23 @@ class ShopController extends Controller {
           | SaveOrderCreatedListener saves the order data to DB
           | and store in shared data the last insert id
          */
-        
+
         $order_params = array(
-         "first_name" => $request->get('co_f_name'),
-         "last_name" => $request->get('co_l_name'),
-         "phone" => $request->get('co_phone'),
-         "address" => $request->get('co_address1'),
-         "city" => $request->get('co_city'),
-         "province" => $request->get('co_province'),
-         "zip" => $request->get('co_zip'),
-         "instruction" => $request->get('co_instruction'),
-         "shipping_cost" => $request->get('shipping_cost'),
-         "total_amount" => $request->get('total_amount'),
-         );
-        
-        
-        $shop->buildOrder( $order_params )->updateShopper( $request );
+            "first_name" => $request->get('co_f_name'),
+            "last_name" => $request->get('co_l_name'),
+            "phone" => $request->get('co_phone'),
+            "address" => $request->get('co_address1'),
+            "city" => $request->get('co_city'),
+            "province" => $request->get('co_province'),
+            "zip" => $request->get('co_zip'),
+            "instruction" => $request->get('co_instruction'),
+            "shipping_cost" => $request->get('shipping_cost'),
+            "total_amount" => $request->get('total_amount'),
+        );
+
+
+        $shop->buildOrder($order_params);
+        $this->updateShopper( $shop->getShopper() );
 
         /*
          * payment code from external service
@@ -854,7 +881,8 @@ class ShopController extends Controller {
          */
 
         // payment service calls
-        $shop->setPaymentCode()->updateShopper( $request );
+        $shop->setPaymentCode();
+        $this->updateShopper( $shop->getShopper() );
 
 
         /*
@@ -878,8 +906,8 @@ class ShopController extends Controller {
      */
     public function close(Request $request) {
 
-        
-         /*
+
+        /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
           |--------------------------------------------------------------------------
@@ -895,9 +923,9 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
-        
+        $shop = $this->loadShop($request);
+
+
         /*
           |--------------------------------------------------------------------------
           | CHECKING IF COUPON IS VALID
@@ -925,7 +953,7 @@ class ShopController extends Controller {
         }
 
 
-       
+
 
         /*
           |--------------------------------------------------------------------------
@@ -935,8 +963,8 @@ class ShopController extends Controller {
           | return null
           |
          */
-        
-         try {
+
+        try {
 
             // retrieve the order by id
             $shop = $shop->finalizeOrder();
@@ -946,15 +974,16 @@ class ShopController extends Controller {
                 //throw exception if order is not valid
                 throw new \App\Exceptions\OrderNotFoundException();
             }
-            
-            $shop->updateShopper( $request );  
+
+            $this->updateShopper( $shop->getShopper() );
         } catch (\App\Exceptions\OrderNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
         }
 
-               
-        $shop->savePurchase()->updateShopper( $request );
+
+        $shop->savePurchase();
+        $this->updateShopper( $shop->getShopper() );
 
         /*
           |--------------------------------------------------------------------------
@@ -965,11 +994,12 @@ class ShopController extends Controller {
           |
          */
 
-        $shop->updateCoupon()->updateShopper( $request );  
-        
-        
-        
-         /*
+        $shop->updateCoupon();
+        $this->updateShopper( $shop->getShopper() );
+
+
+
+        /*
           |--------------------------------------------------------------------------
           | NOTIFY NEW ORDER
           |--------------------------------------------------------------------------
@@ -988,7 +1018,7 @@ class ShopController extends Controller {
          * @return null
          */
         // dispacth the NotifyOrder
-        event(new \App\Events\NotifyOrder( $request , array("shopper" => $shop->getShopper())));
+        event(new \App\Events\NotifyOrder($request, array("shopper" => $shop->getShopper())));
 
 
 
@@ -1013,7 +1043,7 @@ class ShopController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function thanks(Request $request) {
-        
+
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -1030,8 +1060,8 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
-        
+        $shop = $this->loadShop($request);
+
         /*
           |--------------------------------------------------------------------------
           | EMPTY AND DELETE THE CART
@@ -1041,11 +1071,12 @@ class ShopController extends Controller {
           |
          */
 
-        $shop->resetShopper()->updateShopper( $request );       
-        
+        $shop->resetShopper();
+        $this->updateShopper( $shop->getShopper() );
+
 
         //        
-        return \View::make('pay' , array("shopper" => $shop->getShopper()));
+        return \View::make('pay', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -1055,7 +1086,7 @@ class ShopController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function tester(Request $request) {
-        
+
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -1072,10 +1103,10 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
+        $shop = $this->loadShop($request);
 
         //        
-        return \View::make('tester' , array("shopper" => $shop->getShopper()));
+        return \View::make('tester', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -1085,7 +1116,7 @@ class ShopController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function staff(Request $request) {
-        
+
         /*
           |--------------------------------------------------------------------------
           | SHOP FACADE INSTANCE
@@ -1102,10 +1133,10 @@ class ShopController extends Controller {
          * @param  \Illuminate\Http\Request  $request
          * @return null
          */
-        $shop = $this->loadShop( $request );
+        $shop = $this->loadShop($request);
 
         //        
-        return \View::make('staff' , array("shopper" => $shop->getShopper()));
+        return \View::make('staff', array("shopper" => $shop->getShopper()));
     }
 
     /**
@@ -1119,21 +1150,55 @@ class ShopController extends Controller {
         //        
         return \View::make('errors/notfound', array("message" => $request->get("message")));
     }
-    
-    
+
     /**
      * loadShop return a instance of ShopFacade
      *
      * @param  \Illuminate\Http\Request  $request
      * @return  ShopFacade
      */
-    
-    private function loadShop( Request $request ){
-        $shopper = $request->session()->get("Shopper");
-        if(!$shopper) { $shopper = new Shopper(); }
+    private function loadShop(Request $request) {
+        
+        // class Memento store in shared memory
+        // the Shopper object using Caching driver 
+        // configured in config/cache.php
+        $memento = new Memento();
+        $shopper = $memento->get( 'Shopper' );
+        
+        if (!$shopper) {
+            $shopper = new Shopper();
+        }
+        
         return new ShopFacade( $shopper );
     }
     
+    
+     /**
+     * updateShopper() - set the initial delivery cost in shopper object
+     *
+     * @param  Request $request
+     * @return Shopper
+     */
+    // update the shopper object in session
+    public function updateShopper( $shopper ) {
+        
+        // class Memento store in shared memory
+        // the Shopper object using Caching driver 
+        // configured in config/cache.php
+        $memento = new Memento();
+        $memento->set( "Shopper", $shopper );
+    }
+
+    // deleting the shopper in cache
+    public function quit() {
+        
+        // class Memento store in shared memory
+        // the Shopper object using Caching driver 
+        // configured in config/cache.php
+        $memento = new Memento();
+        $memento->delete( "Shopper" );
+        $memento->set( "Shopper", new Shopper() );
+    }
     
     
 

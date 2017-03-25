@@ -11,6 +11,13 @@ class Cart implements CartInterface
     
     private $collection = array();
     
+    
+     /**
+     * addItem() 
+     *
+     * @param  Cartable $product
+     * @return null
+     */
     public function addItem( Cartable $product ){
         
                 
@@ -23,11 +30,15 @@ class Cart implements CartInterface
         // add the item in the cart
         array_push($this->collection, $product); 
         
-        
-               
-        
     }
     
+    
+     /**
+     * removeItem() 
+     *
+     * @param  String $id
+     * @return null
+     */
     public function removeItem($id){
         
         //remove the item from the cart
@@ -35,13 +46,28 @@ class Cart implements CartInterface
         
     }
     
-    public function updateItem($id,$qty){
+    
+    /**
+     * updateItem() 
+     *
+     * @param  String $id
+     * @param  String $qty
+     * @return null
+     */
+    public function updateItem( $id , $qty ){
         
         //update the item from the cart
        $this->collection[$id]->setQuantity($qty);
         
     }
     
+    
+     /**
+     * getNumOfItems() 
+     *
+     * @param  null
+     * @return Integer 
+     */
     public function getNumOfItems(){
         
         $numofitems = 0;
@@ -53,6 +79,13 @@ class Cart implements CartInterface
         
     }
     
+    
+    /**
+     * getAmount() 
+     *
+     * @param  null
+     * @return Integer 
+     */
      public function getAmount(){
          
         $amount = 0;
@@ -67,13 +100,25 @@ class Cart implements CartInterface
     }
     
    
-    
+    /**
+     * getCollection() 
+     *
+     * @param  null
+     * @return array 
+     */
     public function getCollection(){
         
         // return all of the items in  the cart
-        return $this->collection;
+        return array_reverse($this->collection);
     }   
     
+    
+    /**
+     * isEmpty() 
+     *
+     * @param  null
+     * @return boolean
+     */
     public function isEmpty(){
         
          // check if the collection is empty
@@ -85,7 +130,12 @@ class Cart implements CartInterface
     }
     
     
-    
+    /**
+     * getTotalVolume() 
+     *
+     * @param  null
+     * @return Integer 
+     */
     
     public function getTotalVolume(){
         
@@ -106,6 +156,13 @@ class Cart implements CartInterface
         return $totalvolume;
         
     }
+    
+    /**
+     * getNormalizedDimension() 
+     *
+     * @param  String $dim
+     * @return String 
+     */
     
     private function getNormalizedDimension($dim){
         return substr($dim, 0,3);

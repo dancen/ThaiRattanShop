@@ -3,7 +3,6 @@
 namespace App\Models\Shop;
 
 use App\Models\Shop\Shopper;
-use Illuminate\Http\Request;
 
 // this class retrun static method for useful tasks provided in the template
 
@@ -11,7 +10,7 @@ class ShopFacade {
 
     private $shopper;
 
-    public function __construct(Shopper $shopper) {
+    public function __construct( Shopper $shopper ) {
 
         $this->shopper = $shopper;
     }
@@ -59,36 +58,23 @@ class ShopFacade {
     public function setProductCategories() {
 
 
+        /**
+         * findAll() method retrieve all categories
+         *
+         * @param  null
+         * @return Collection
+         */
+        $categories = \App\Models\Category\Category::findAll();
 
-        try {
-
-            /**
-             * findAll() method retrieve all categories
-             *
-             * @param  null
-             * @return Collection
-             */
-            $categories = \App\Models\Category\Category::findAll();
-
-            //check if
-            if ($categories == null) {
-                //throw exception if email is not valid
-                throw new \App\Exceptions\CategoriesNotFoundException();
-            }
-
-            /**
-             * store category list in shopper object
-             * to avoid repetitives db calls
-             *
-             * @param  \Illuminate\Http\Request  $request
-             * @param   \App\Models\Category\Category  $categories
-             * @return null
-             */
-            $this->shopper->setCategories($categories);
-        } catch (\App\Exceptions\CategoriesNotFoundException $e) {
-            // redirect to page not found
-            return $e->handle();
-        }
+        /**
+         * store category list in shopper object
+         * to avoid repetitives db calls
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param   \App\Models\Category\Category  $categories
+         * @return null
+         */
+        $this->shopper->setCategories($categories);
 
         // return the shopper
         return $this;
@@ -141,23 +127,7 @@ class ShopFacade {
         return $this;
     }
 
-    /**
-     * initDeliveryCost() - set the initial delivery cost in shopper object
-     *
-     * @param  Request $request
-     * @return Shopper
-     */
-    // update the shopper object in session
-    public function updateShopper(Request $request) {
-        $request->session()->put("Shopper", $this->shopper);
-        return $this->shopper;
-    }
-
-    // deleting all session variables
-    public function quit(Request $request) {
-        $request->session()->flush();
-        $request->session()->put("Shopper", new Shopper());
-    }
+   
 
     /**
      * setCategory() - get category by slug
@@ -734,17 +704,17 @@ class ShopFacade {
      * @return null
      */
     public function resetShopper() {
-        
+
         // unset the cart
         $shopper = new Shopper();
         $shopper->setCouponCode($this->shopper->getCouponCode());
         $shopper->setDeliveryAreas($this->shopper->getDeliveryAreas());
         $shopper->setDeliveryArea($this->shopper->getDeliveryArea());
         $shopper->setCategories($this->shopper->getCategories());
-        
+
         // unset the shopper
-        $this->shopper = null;        
-        
+        $this->shopper = null;
+
         // assign the shopper
         $this->shopper = $shopper;
 
