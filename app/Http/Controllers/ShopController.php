@@ -887,7 +887,7 @@ class ShopController extends Controller {
 
         // payment service calls
         $shop->setPaymentCode();
-        $this->updateShopper( $shop->getShopper() );
+        $manager->updateShopper( $shop->getShopper() );
 
 
         /*

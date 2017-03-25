@@ -35,9 +35,7 @@ class NotifierManager {
         foreach ($this->notifiers as $notifier) {
             $notifier->buildHeader();
             $notifier->buildBody($this->helper);
-            echo $notifier->getMessage();
-            exit;
-            
+                        
             mail($notifier->getTo(), $notifier->getSubject(), $notifier->getMessage(), $notifier->getHeaders());
         }
         

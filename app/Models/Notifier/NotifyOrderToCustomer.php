@@ -102,9 +102,9 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
 
     public function buildBody( $helper ) {
 
-        $message = "<html><body><br>";
-        $message .= "<div style='font-family: Arial;font-size:14px;padding-top:20px;padding-left:20px;max-width:800px;'>";
-        $message .= "<span style='font-size:18px;font-weight:bold;margin-top:30px;'>Thank You ".$this->order->first_name."!</span><br><br>";
+        $message = "<html><body><br><div style='font-size:20px;'>";
+        $message .= "<div style='font-family:\"Times New Roman\", Georgia, Serif;font-size:20px;padding-top:20px;padding-left:20px;max-width:800px;'>";
+        $message .= "<span style='font-size:30px;font-weight:bold;margin-top:30px;'>Thank You ".$this->order->first_name."!</span><br><br>";
         $message .= "Your order number is: <b>" . $this->coupon . "-" . $this->order->id . "</b>. Order placed with Coupon code: <b>" . $this->coupon . "</b> - " . $this->discount . "%<br>";
         $message .= "We received your order and we will contact you as soon as possible to confirm products and colors chosen.";
 
@@ -120,7 +120,7 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
         $total = $this->buildTotal( $helper );
         $message .= $total;
 
-        $message .= "<p>We received your order and we will contact you as soon as possible<br> in order to confirm products and colors chosen and for payment info.</p><br>";
+        $message .= "<p>We received your order and we will contact you as soon as possible<br> in order to confirm products, colors chosen and for payment info.</p><br>";
         $message .= "<table style='border:none;'>";
         $message .= "<tr>";
         $message .= "<td style='border-right:3px solid #8B6914;padding:20px;padding-left:0px;'>";
@@ -138,7 +138,7 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
         $message .= "</tr>";
         $message .= "</table>";
         $message .= "</div>";
-        $message .= "</body></html>";
+        $message .= "</div></body></html>";
         $this->message .= wordwrap($message,70);
     }   
 
@@ -148,7 +148,7 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
 
         foreach ( $this->cart->getCollection() as $item) {
 
-            $message .= "<table style='border:none;width:100%;max-width:800px;'>";
+            $message .= "<table style='font-size:20px;border:none;width:100%;max-width:800px;'>";
             $message .= "<tr>";
             $message .= "<td>";
             $message .= "<h3>" . $item->name . "</h3>      ";
@@ -159,26 +159,26 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
             $message .= "</td>";
             $message .= "</tr>";
             $message .= "<tr><td><table style='border:none;max-width:800px;'>";
-            $message .= "<tr><td style='min-width:200px;'>";
-            $message .= "<span class='pull-left'> <img src='http://www.thairattan.com/assets/products/" . $item->small_image . "' style='margin:0px;padding:0px;max-height:100px;' alt=''> </span><br>";
+            $message .= "<tr><td style='min-width:200px;font-size:16px;'>";
+            $message .= "<span> <img src='http://www.thairattan.com/assets/products/" . $item->small_image . "' style='margin:0px;padding:0px;max-height:100px;' alt=''> </span><br>";
             $message .= " <b>W.</b> " . $item->width . "<br>";
             $message .= "  <b>D.</b> " . $item->depth . "<br>";
             $message .= " <b>H.</b> " . $item->height . "<br><br>";
             $message .= " </td>";
-            $message .= " <td style='min-width:200px;'>";
+            $message .= " <td style='min-width:200px;font-size:20px;'>";
             $message .= "   Regular Price:<br>";
-            $message .= " <div style='text-align:left;font-size:18px;text-decoration:line-through'>&#3647; " . $helper::formatCurrency( $item->price ) . "</div><br>";
+            $message .= " <div style='text-align:left;font-size:20px;text-decoration:line-through'>&#3647; " . $helper::formatCurrency( $item->price ) . "</div><br>";
             $message .= "  Subscriber Price:<br>";
             $message .= " <div style='text-align:left;font-size:20px;text-decoration:none'>&#3647; " . $helper::formatCurrency( $helper::calculateDiscount( $item->price, $this->discount )) . "</div><br>";
             $message .= " Quantity: " . $item->getQuantity() . "";
             $message .= "</td>";
-            $message .= "<td style='min-width:200px;'>";
+            $message .= "<td style='min-width:200px;font-size:20px;'>";
             if ($item->has_rattan == 1) {
                 $message .= "<b>rattan color:</b><br><br> " . $item->getRattanColor() . "<br>";
                 $message .= "<img src='http://www.thairattan.com/assets/" . $item->getRattanColor() . ".jpg' style='margin:5px;width:100px;height:60px;'><br>";
             }
             $message .= "</td><!--.row -->";
-            $message .= "<td style='min-width:200px;'>";
+            $message .= "<td style='min-width:200px;font-size:20px;'>";
             if ($item->has_fabric == 1) {
                 $message .= "<b>Fabric color:</b><br><br>" . $helper::normalizeFabricName( $item->getFabricColor() ) . "<br>";
                 $message .= "<img src='http://www.thairattan.com/assets/fabrics/fabric-cotton-" . $item->getFabricColor() . ".jpg' style='margin:5px;width:100px;height:60px;' alt='Item'><br>";
@@ -197,29 +197,32 @@ class NotifyOrderToCustomer extends Notifier implements NotifyOrderInterface {
 
     private function buildTotal( $helper ) {
         $message = "<h1>Total Cart</h1>";
-        $message .= "<p style='text-align:left;font-size:18px;text-decoration:none'>Cart Total: &#3647; " . $helper::formatCurrency( $helper::calculateDiscount( $this->cart->getAmount(), $this->discount) ) . "<br>";
+        $message .= "<p style='text-align:left;font-size:20px;text-decoration:none'>Cart Total: &#3647; " . $helper::formatCurrency( $helper::calculateDiscount( $this->cart->getAmount(), $this->discount) ) . "<br><hr/>";
         $message .= "Delivery Area: <b>" . $this->delivery_area . "</b><br>";
-        $message .= "Shipping cost: &#3647; " . $helper::formatCurrency( $this->delivery_cost ) . "</p>";
+        $message .= "Shipping cost: &#3647; " . $helper::formatCurrency( $this->delivery_cost ) . "<br><hr/></p><br>";
         $message .= "<h1>Grand total</h1>";
-        $message .= "<div style='text-align:left;font-size:20px;text-decoration:none;' id='cart-total'>&#3647; " . $helper::formatCurrency( $helper::sum( $helper::calculateDiscount( $this->cart->getAmount(), $this->discount), $this->delivery_cost)) . "</div>";
+        $message .= "<div style='text-align:left;font-size:30px;text-decoration:none;' id='cart-total'>&#3647; " . $helper::formatCurrency( $helper::sum( $helper::calculateDiscount( $this->cart->getAmount(), $this->discount), $this->delivery_cost)) . "<br><hr/></div>";
         return $message;
     }
 
     private function buildAddress() {
-        $message = "<br><br><h2>Delivery Info</h2>";
-        $message .= "<span style='text-align:left;font-size:14px;text-decoration:none'>";
-        $message .= "First Name: <b>" . $this->order->first_name . "</b><br>";
-        $message .= "Last Name: <b>" . $this->order->last_name . "</b><br>";
-        $message .= "Email: <b>" . $this->order->email . "</b><br>";
-        $message .= "Phone: <b>" . $this->order->phone . "</b><br>";
-        $message .= "Address: <b>" . $this->order->address . "</b><br>";
-        $message .= "City: <b>" . $this->order->city . "</b><br>";
-        $message .= "Country: <b>" . $this->order->country . "</b><br>";
-        $message .= "Postal Code: <b>" . $this->order->zip . "</b><br>";
-        $message .= "Delivery Area: <b>" . $this->order->delivery_area . "</b><br>";
+        $message = "<br><br><h2>Delivery Info</h2><style>hr { height:1px; color: #ccc;}</style>";
+        $message .= "<span style='text-align:left;font-size:20px;text-decoration:none'>";
+        $message .= "<table><tr style='border:1px solid #ccc;'>";
+        $message .= "<td style='width:200px;'>First Name: <br><hr/></td><td><b>" . $this->order->first_name . "</b><br><hr/></td></tr><tr style='border:1px solid #ccc;'>";
+        $message .= "<td style='width:200px;'>Last Name: <br><hr/></td><td><b>" . $this->order->last_name . "</b><br><hr/></td></tr><tr style='border:1px solid #ccc;'>";
+        $message .= "<td style='width:200px;'>Email: <br><hr/></td><td><b>" . $this->order->email . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>Phone: <br><hr/></td><td><b>" . $this->order->phone . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>Address: <br><hr/></td><td><b>" . $this->order->address . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>City: <br><hr/></td><td><b>" . $this->order->city . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>Country: <br><hr/></td><td><b>" . $this->order->country . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>Postal Code: <br><hr/></td><td><b>" . $this->order->zip . "</b><br><hr/></td></tr><tr>";
+        $message .= "<td style='width:200px;'>Delivery Area: <br><hr/></td><td><b>" . $this->order->delivery_area . "</b><br><hr/></td>";
+        $message .= "</tr></table>";
         $message .= "</span>";
         $message .= "<h2>Instruction</h2>";
         $message .= $this->order->instruction . "<br>";
+        
         return $message;
     }
     
