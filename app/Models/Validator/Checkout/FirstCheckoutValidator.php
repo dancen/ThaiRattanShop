@@ -7,7 +7,7 @@ use App\Models\Validator\Checkout\CheckoutValidatorInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
-// this class store the collection of items in the shopping cart
+// checkout class
 
 class FirstCheckoutValidator extends CheckoutValidator implements CheckoutValidatorInterface {
 

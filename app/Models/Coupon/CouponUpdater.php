@@ -4,7 +4,7 @@ namespace App\Models\Coupon;
 use App\Models\Subscriber\SubscriberInterface;
 
 
-// this class store the collection of items in the shopping cart
+// Facade class to update the Coupon
 
 class CouponUpdater 
 {

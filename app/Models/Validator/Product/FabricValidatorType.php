@@ -3,7 +3,7 @@
 namespace App\Models\Validator\Product;
 use App\Models\Validator\ValidatorTypeInterface;
 
-// this class store the collection of items in the shopping cart
+// validator type class
 
 final class FabricValidatorType implements ValidatorTypeInterface
 {

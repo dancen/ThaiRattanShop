@@ -6,7 +6,7 @@ use App\Models\Validator\Checkout\CheckoutValidator;
 use App\Models\Validator\Checkout\CheckoutValidatorInterface;
 use Illuminate\Support\Facades\Validator;
 
-// this class store the collection of items in the shopping cart
+// class validator
 
 class DefaultCheckoutValidator extends CheckoutValidator implements CheckoutValidatorInterface {
 

@@ -5,7 +5,7 @@ namespace App\Models\Memento;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
-// this class store the collection of items in the shopping cart
+// this class manage sharing data by using the driver in config/cache.php
 
 class Memento extends AppMemento implements MementoInterface {
     

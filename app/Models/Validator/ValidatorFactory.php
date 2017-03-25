@@ -4,7 +4,7 @@ namespace App\Models\Validator;
 use Illuminate\Http\Request;
 use App\Models\Validator\ValidatorTypeInterface;
 
-// this class store the collection of items in the shopping cart
+// Dynamic factory
 
 class ValidatorFactory 
 {

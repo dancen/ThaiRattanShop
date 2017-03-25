@@ -2,7 +2,7 @@
 
 namespace App\Models\Product;
 
-// this class store the collection of items in the shopping cart
+// interface all product class must implement
 
 interface ProductInterface 
 {

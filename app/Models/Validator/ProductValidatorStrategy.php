@@ -3,7 +3,7 @@
 namespace App\Models\Validator;
 use Illuminate\Http\Request;
 
-// this class store the collection of items in the shopping cart
+// validator pattern strategy
 
 class ProductValidatorStrategy 
 {

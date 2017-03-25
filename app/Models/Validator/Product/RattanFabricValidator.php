@@ -4,7 +4,7 @@ namespace App\Models\Validator\Product;
 use App\Models\Validator\Product\ProductValidator;
 use Illuminate\Support\Facades\Validator;
 
-// this class store the collection of items in the shopping cart
+// validator class
 
 class RattanFabricValidator extends ProductValidator implements ProductValidatorInterface
 {

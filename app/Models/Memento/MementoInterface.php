@@ -2,7 +2,7 @@
 
 namespace App\Models\Memento;
 
-// this class store the collection of items in the shopping cart
+// interface must be implemented for Memento classes
 
 interface MementoInterface 
 {

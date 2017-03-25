@@ -5,7 +5,7 @@ use App\Models\Validator\Product\ProductValidator;
 use App\Models\Validator\Product\ProductValidatorInterface;
 use Illuminate\Support\Facades\Validator;
 
-// this class store the collection of items in the shopping cart
+// validator class
 
 class FabricValidator extends ProductValidator implements ProductValidatorInterface
 {

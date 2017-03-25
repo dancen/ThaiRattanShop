@@ -2,7 +2,7 @@
 
 namespace App\Models\Coupon;
 
-// this class store the collection of items in the shopping cart
+// interface must be implemented by CouponType classes
 
 interface CouponTypeInterface {
     

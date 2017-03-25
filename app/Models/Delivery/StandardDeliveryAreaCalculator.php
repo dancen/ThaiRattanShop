@@ -7,7 +7,7 @@ use App\Models\Delivery\DeliveryAreaInterface;
 use App\Models\Cart\CartInterface;
 use App\Models\Delivery\Delivery;
 
-// this class store the collection of items in the shopping cart
+// Delivery area calculator class
 
 class StandardDeliveryAreaCalculator extends DeliveryAreaCalculator implements DeliveryAreaInterface  {
 

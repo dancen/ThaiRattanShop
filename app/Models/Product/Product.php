@@ -5,7 +5,7 @@ use App\Models\Repositories\ProductRepository as BaseProduct;
 use App\Models\Product\ProductInterface;
 use App\Models\Cart\Cartable;
 
-// this class store the collection of items in the shopping cart
+// product class 
 
 class Product extends BaseProduct implements ProductInterface, Cartable
 {

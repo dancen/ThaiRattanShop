@@ -3,7 +3,7 @@
 namespace App\Models\Discount;
 use App\Models\Discount\DiscountModelInterface;
 
-// this class store the collection of items in the shopping cart
+// interface all discount classes must implement
 
 interface DiscountInterface 
 {

@@ -4,7 +4,7 @@ namespace App\Models\Coupon;
 use App\Models\Subscriber\SubscriberInterface;
 use App\Models\Coupon\CouponInterface;
 
-// this class store the collection of items in the shopping cart
+// Coupon implements strategy pattern
 
 class CouponStrategy implements CouponInterface
 {

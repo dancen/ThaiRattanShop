@@ -2,7 +2,8 @@
 
 namespace App\Models\Orders;
 use App\Models\Orders\Orders;
-// this class store the collection of items in the shopping cart
+
+// Order builder class
 
 class OrderBuilder
 {

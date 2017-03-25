@@ -6,7 +6,7 @@ use App\Models\Coupon\CouponInterface;
 use \App\Models\Discount\DiscountInterface;
 use \App\Models\Discount\DiscountFactory;
 
-// this class store the collection of items in the shopping cart
+// Coupon class
 
 class NoCoupon extends Coupon implements CouponInterface
 {

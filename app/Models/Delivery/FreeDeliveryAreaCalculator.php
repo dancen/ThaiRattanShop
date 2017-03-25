@@ -5,7 +5,7 @@ namespace App\Models\Delivery;
 use App\Models\Delivery\DeliveryAreaCalculator;
 use App\Models\Delivery\DeliveryAreaInterface;
 
-// this class store the collection of items in the shopping cart
+// Delivery area calculator class
 
 class FreeDeliveryAreaCalculator extends DeliveryAreaCalculator implements DeliveryAreaInterface  {
 

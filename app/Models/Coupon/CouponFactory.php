@@ -3,7 +3,7 @@
 namespace App\Models\Coupon;
 use App\Models\Coupon\CouponTypeInterface;
 
-// this class store the collection of items in the shopping cart
+// Coupon Dynamic factoy 
 
 class CouponFactory 
 {
