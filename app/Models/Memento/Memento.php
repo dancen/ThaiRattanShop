@@ -46,7 +46,7 @@ class Memento extends AppMemento implements MementoInterface {
      */
     
     public function set($key, $value) {
-        $expiresAt = Carbon::now()->addMinutes(30);
+        $expiresAt = Carbon::now()->addMinutes(self::EXPIRY_TIME_MIN);
         Cache::put($key, $value, $expiresAt);
     }
 
