@@ -29,8 +29,7 @@ class ShopManager
      * @return  ShopFacade
      */
     public function loadShop() {
-        
-        
+                
         $shopper = $this->memento->get( 'Shopper' );        
         
         // if the shopper not in memory
@@ -39,9 +38,24 @@ class ShopManager
             return null;
         } else {
             return new ShopMediator( $shopper );
-        }
+        }        
         
+    }
+    
+    
+    /**
+     * createShop return a instance of ShopFacade
+     *
+     * @param  null
+     * @return  ShopFacade
+     */
+    public function createShop(){
         
+        $facade = new ShopMediator( new Shopper() );
+        $facade->init();
+        $shopper = $facade->getShopper();
+        $this->memento->set( "Shopper", $shopper );
+        return $facade;
     }
     
     

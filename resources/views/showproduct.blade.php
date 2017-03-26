@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<?php $discount = Session::get('discount'); ?>
+<?php $discount = $shopper->getDiscount(); ?>
 <?php $product = $shopper->getProduct(); ?>
 <?php $coupon = $shopper->getCouponCode(); ?> 
 

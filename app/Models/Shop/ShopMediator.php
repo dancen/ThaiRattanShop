@@ -34,13 +34,15 @@ class ShopMediator {
 
         $facade = new ShopFacade($this->shopper);
         $facade->initDiscount();
-
-        $facade_delivery = new ShopDeliveryFacade($facade->getShopper());
+        $this->shopper = $facade->getShopper();
+       
+        $facade_delivery = new ShopDeliveryFacade( $this->shopper );
         $facade_delivery->initDeliveryCost();
         $facade_delivery->loadDeliveryAreas();
+        $this->shopper = $facade_delivery->getShopper();
 
         // return the shopper
-        return $facade_delivery;
+        return $this;
     }
 
     /**
@@ -63,8 +65,9 @@ class ShopMediator {
     public function getProductCategories() {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->getProductCategories();
+        $facade->getProductCategories();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -76,8 +79,9 @@ class ShopMediator {
     public function setProductCategories() {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->setProductCategories();
+        $facade->setProductCategories();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -89,8 +93,9 @@ class ShopMediator {
     public function initDiscount() {
 
         $facade = new ShopFacade($this->shopper);
-
-        return $facade->initDiscount();
+        $facade->initDiscount();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -102,8 +107,9 @@ class ShopMediator {
     public function initDeliveryCost() {
 
         $facade = new ShopDeliveryFacade($this->shopper);
-
-        return $facade->initDeliveryCost();
+        $facade->initDeliveryCost();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -115,8 +121,9 @@ class ShopMediator {
     public function setCategory($slug) {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->setCategory($slug);
+        $facade->setCategory($slug);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -128,8 +135,9 @@ class ShopMediator {
     public function setProducts() {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->setProducts();
+        $facade->setProducts();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -141,8 +149,9 @@ class ShopMediator {
     public function setProduct($slug) {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->setProduct($slug);
+        $facade->setProduct($slug);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -154,8 +163,9 @@ class ShopMediator {
     public function populateProduct($product_params) {
 
         $facade = new ShopProductFacade($this->shopper);
-
-        return $facade->populateProduct($product_params);
+        $facade->populateProduct($product_params);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -167,8 +177,9 @@ class ShopMediator {
     public function updateCart($update_params) {
 
         $facade = new ShopCartFacade($this->shopper);
-
-        return $facade->updateCart($update_params);
+        $facade->updateCart($update_params);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -180,8 +191,9 @@ class ShopMediator {
     public function loadDeliveryAreas() {
 
         $facade = new ShopDeliveryFacade($this->shopper);
-
-        return $facade->loadDeliveryAreas();
+        $facade->loadDeliveryAreas();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -193,8 +205,9 @@ class ShopMediator {
     public function setDeliveryAreaId() {
 
         $facade = new ShopDeliveryFacade($this->shopper);
-
-        return $facade->setDeliveryAreaId();
+        $facade->setDeliveryAreaId();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -206,8 +219,9 @@ class ShopMediator {
     public function setDeliveryChanged($delivery_area_id = null) {
 
         $facade = new ShopDeliveryFacade($this->shopper);
-
-        return $facade->setDeliveryChanged($delivery_area_id);
+        $facade->setDeliveryChanged($delivery_area_id);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -220,8 +234,9 @@ class ShopMediator {
     public function setDeliveryChangedAjax($areaobj, $cart) {
 
         $facade = new ShopDeliveryFacade($this->shopper);
-
-        return $facade->setDeliveryChangedAjax($areaobj, $cart);
+        $arraycost = $facade->setDeliveryChangedAjax($areaobj, $cart);
+        $this->shopper = $facade->getShopper();        
+        return $arraycost;
     }
 
     /**
@@ -234,8 +249,9 @@ class ShopMediator {
     public function setQuantityChangedAjax($areaobj, $cart) {
 
         $facade = new ShopCartFacade($this->shopper);
-
-        return $facade->setQuantityChangedAjax($areaobj, $cart);
+        $arraycost = $facade->setQuantityChangedAjax($areaobj, $cart);
+        $this->shopper = $facade->getShopper();        
+        return $arraycost;
     }
 
     /**
@@ -247,8 +263,9 @@ class ShopMediator {
     public function removeItem($item_id) {
 
         $facade = new ShopCartFacade($this->shopper);
-
-        return $facade->removeItem($item_id);
+        $facade->removeItem($item_id);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -260,8 +277,9 @@ class ShopMediator {
     public function updateItem($item_params) {
 
         $facade = new ShopCartFacade($this->shopper);
-
-        return $facade->updateItem($item_params);
+        $facade->updateItem($item_params);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -273,8 +291,9 @@ class ShopMediator {
     public function setLastOrder() {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->setLastOrder();
+        $facade->setLastOrder();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -287,8 +306,9 @@ class ShopMediator {
     public function setPaymentCode() {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->setPaymentCode();
+        $facade->setPaymentCode();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -300,8 +320,9 @@ class ShopMediator {
     public function buildOrder($order_params) {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->buildOrder($order_params);
+        $facade->buildOrder($order_params);
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -313,8 +334,9 @@ class ShopMediator {
     public function finalizeOrder() {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->finalizeOrder();
+        $facade->finalizeOrder();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -326,8 +348,9 @@ class ShopMediator {
     public function updateCoupon() {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->updateCoupon();
+        $facade->updateCoupon();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -339,8 +362,9 @@ class ShopMediator {
     public function savePurchase() {
 
         $facade = new ShopOrdersFacade($this->shopper);
-
-        return $facade->savePurchase();
+        $facade->savePurchase();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
     /**
@@ -352,8 +376,9 @@ class ShopMediator {
     public function resetShopper() {
 
         $facade = new ShopFacade($this->shopper);
-
-        return $facade->resetShopper();
+        $facade->resetShopper();
+        $this->shopper = $facade->getShopper();
+        return $this;
     }
 
 }

@@ -10,7 +10,7 @@ class OrdersController extends Controller {
 
     
     public function __construct() {
-        $this->middleware('auth');
+       
     }
 
     /*
@@ -25,8 +25,8 @@ class OrdersController extends Controller {
     public function manager(Request $request) {
 
 
-        //$email = $request->get("email");
-        //$coupon = $request->get("coupon");
+        $email = $request->get("email");
+        $coupon = $request->get("coupon");
 
         $email = "daniele.centamore@gmail.com";
         $coupon = "123456";
@@ -80,33 +80,8 @@ class OrdersController extends Controller {
 
 
 
-        return \View::make('auth.manager.orders', array("orders" => $orders, "subscriber" => $subscriber));
+        return \View::make('manager.orders', array("orders" => $orders, "subscriber" => $subscriber));
     }
     
-    
-     //
-    public function adduser( $name , $email , $dominio , $pwd ) {
-        
-        $user = new \App\User();
-        $user->name = $name;
-        $user->password = \Hash::make($pwd);
-        $user->email = $email.'@'.$dominio;
-        $user->created_at = new \Datetime('now');
-        $user->updated_at = new \Datetime('now');
-        $user->save();
-        
-         // return the template
-        return Redirect::action('OrdersController@manager');
-    }
-    
-     //
-    public function deleteuser( $id ) {
-        
-        $user = \App\User::find($id);        
-        $user->delete();
-        
-         // return the template
-        return Redirect::action('OrdersController@manager');
-    }
 
 }

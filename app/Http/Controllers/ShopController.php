@@ -35,7 +35,7 @@ class ShopController extends Controller {
      */
     public function index(Request $request) {
 
-        
+
 
 
         /*
@@ -56,31 +56,10 @@ class ShopController extends Controller {
          */
         $manager = new ShopManager(new Memento());
         
-        try {
+        // if the $shop is not in memory we create a new shop
+        $manager->loadShop() != null ? $shop = $manager->loadShop() : $shop = $manager->createShop();
 
-            /**
-             * findAll() method retrieve all categories
-             *
-             * @param  null
-             * @return Collection
-             */
-            
-            $shop = $manager->loadShop();
-
-            //check if
-            if ($shop == null) {
-                //throw exception if email is not valid
-                throw new \App\Exceptions\SessionExpiredException();
-            }
-
-            $manager->updateShopper($shop->getShopper());
-        } catch (\App\Exceptions\SessionExpiredException $e) {
-            // redirect to page not found
-            return $e->handle();
-        }
-        
-        
-
+       
         /*
           |--------------------------------------------------------------------------
           | RETRIEVING CATEGORIES
@@ -156,8 +135,11 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
+        $manager = new ShopManager(new Memento());
         
+       
+
+
         try {
 
             /**
@@ -166,7 +148,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -242,8 +223,6 @@ class ShopController extends Controller {
 
 
 
-
-
         /*
           |--------------------------------------------------------------------------
           | RETURN VIEW PRODUCTS.BLADE.PHP
@@ -282,8 +261,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -292,7 +271,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -383,8 +361,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -393,7 +371,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -625,8 +602,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -635,7 +612,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -764,8 +740,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -774,7 +750,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -788,9 +763,9 @@ class ShopController extends Controller {
             // redirect to page not found
             return $e->handle();
         }
-        
-        
-        
+
+
+
 
         try {
 
@@ -848,8 +823,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -858,7 +833,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -937,8 +911,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -947,7 +921,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -1106,8 +1079,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -1116,7 +1089,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -1266,8 +1238,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -1276,7 +1248,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -1332,8 +1303,8 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-         $manager = new ShopManager(new Memento());
-        
+        $manager = new ShopManager(new Memento());
+
         try {
 
             /**
@@ -1342,7 +1313,6 @@ class ShopController extends Controller {
              * @param  null
              * @return Collection
              */
-            
             $shop = $manager->loadShop();
 
             //check if
@@ -1403,7 +1373,7 @@ class ShopController extends Controller {
         //        
         return \View::make('errors/notfound', array("message" => $request->get("message")));
     }
-    
+
     /**
      * expired is the method to show session expired
      *
@@ -1444,9 +1414,12 @@ class ShopController extends Controller {
          * @return null
          */
         $manager = new ShopManager(new Memento());
+        
+        // load the shop from sharing memory
         $shop = $manager->loadShop();
-        
-        
+
+        // check if the shop is null 
+        // session expired
         if ($shop == null) {
             // return error
             return response()->json(json_decode(json_encode(array('error' => 'Session Expired'))));
@@ -1524,7 +1497,10 @@ class ShopController extends Controller {
          */
         $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
+
         
+        // check if the shop is null 
+        // session expired
         if ($shop == null) {
             // return error
             return response()->json(json_decode(json_encode(array('error' => 'Session Expired'))));
@@ -1609,8 +1585,5 @@ class ShopController extends Controller {
         // return the template
         return Redirect::action('ShopController@index');
     }
-
-    
-   
 
 }
