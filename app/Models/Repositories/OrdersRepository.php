@@ -18,7 +18,7 @@ class OrdersRepository extends BaseOrders
     }
     
     public static function findByEmail( $email ){
-        return parent::whereEmail($email)->get();
+        return parent::whereEmail($email)->orderBy("id", "DESC")->get();
     }
     
       

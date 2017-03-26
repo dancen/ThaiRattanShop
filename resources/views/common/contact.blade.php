@@ -1,4 +1,5 @@
 <section id="thai-rattan-contact" class="contact section">
+    <a name="contact-us"></a>
     <div class="container">
         <h2 class="title">Drop us a line</h2>
         <div class="row">

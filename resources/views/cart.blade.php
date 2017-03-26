@@ -75,7 +75,7 @@
                             {{ Form::open(array('url' => '/cart-update','method'=>'POST', 'id' => 'form-cart-update-'.$item->getCartIndex())) }}
                             <input type="hidden" name="item_id_{{ $item->getCartIndex() }}" id="item_id_{{ $item->getCartIndex() }}" value="{{ $item->getCartIndex() }}">
                             <?php //$js = "$('#form-cart-update-" . $item->getCartIndex() . "').submit();"; ?>
-                            <?php $js = "updateQuantity( document.getElementById('item_id_".$item->getCartIndex()."').value , document.getElementById('quantity_".$item->getCartIndex()."').options[document.getElementById('quantity_".$item->getCartIndex()."').selectedIndex].value )"; ?>  
+                            <?php $js = "updateQuantity( document.getElementById('item_id_" . $item->getCartIndex() . "').value , document.getElementById('quantity_" . $item->getCartIndex() . "').options[document.getElementById('quantity_" . $item->getCartIndex() . "').selectedIndex].value )"; ?>  
                             {{ Form::select('qty', 
                                         array(
                                               $item->getQuantity() => $item->getQuantity(),
@@ -218,8 +218,8 @@
 
     function calculateShippingCost(area_id) {
 
-        $('#checkout-button').prop('disabled',true);
-        
+        $('#checkout-button').prop('disabled', true);
+
         $.ajax({
             url: '{!!route("cart-delivery-changed")!!}',
             type: 'GET',
@@ -227,26 +227,30 @@
                 id: area_id
             },
             success: function (json) {
-                $("#delivery-area-ajax").text(json.delivery_area);
-                $("#delivery-cost-ajax").text(json.delivery_cost);
-                $("#cart-total2-ajax").text(json.cart_total);
-                $("#grand-total-ajax").text(json.grand_total);  
-                $('#checkout-button').prop('disabled',false);
+                if (json.error != null) {
+                      location.replace("{!!route("expired")!!}");
+                } else {
+                    $("#delivery-area-ajax").text(json.delivery_area);
+                    $("#delivery-cost-ajax").text(json.delivery_cost);
+                    $("#cart-total2-ajax").text(json.cart_total);
+                    $("#grand-total-ajax").text(json.grand_total);
+                    $('#checkout-button').prop('disabled', false);
+                }
             },
             error: function (msg) {
                 alert('error');
             },
         });
-        
-       
+
+
 
     }
 
 
-    function updateQuantity( id , q ) {
+    function updateQuantity(id, q) {
 
-        $('#checkout-button').prop('disabled',true);
-        
+        $('#checkout-button').prop('disabled', true);
+
         $.ajax({
             url: '{!!route("cart-quantity-changed")!!}',
             type: 'GET',
@@ -255,15 +259,19 @@
                 qty: q
             },
             success: function (json) {
-                $("#delivery-area-ajax").text(json.delivery_area);
-                $("#delivery-cost-ajax").text(json.delivery_cost);
-                $("#cart-total1-ajax").text(json.cart_total);
-                $("#cart-total2-ajax").text(json.cart_total);
-                $("#grand-total-ajax").text(json.grand_total);
-                $("#cart-total-price-list-ajax").text(json.cart_total_price_list);
-                $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
-                $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
-                $('#checkout-button').prop('disabled',false);
+                if (json.error != null) {
+                      location.replace("{!!route("expired")!!}");
+                } else {
+                    $("#delivery-area-ajax").text(json.delivery_area);
+                    $("#delivery-cost-ajax").text(json.delivery_cost);
+                    $("#cart-total1-ajax").text(json.cart_total);
+                    $("#cart-total2-ajax").text(json.cart_total);
+                    $("#grand-total-ajax").text(json.grand_total);
+                    $("#cart-total-price-list-ajax").text(json.cart_total_price_list);
+                    $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
+                    $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
+                    $('#checkout-button').prop('disabled', false);
+                }
             },
             error: function (msg) {
                 alert("error");

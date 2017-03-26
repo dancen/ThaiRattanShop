@@ -36,9 +36,7 @@ class ShopManager
         // if the shopper not in memory
         // we create and initialize a new shop
         if (!$shopper) {
-            $shop = new ShopMediator( new Shopper() );
-            $shop->init();
-            return $shop;
+            return null;
         } else {
             return new ShopMediator( $shopper );
         }

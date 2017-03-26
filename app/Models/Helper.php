@@ -87,7 +87,7 @@ class Helper {
 
     
     /**
-     * Calcultate sum
+     * findCategoryNameById()
      *
      * @param  Integer  $id 
      * @return Category object
@@ -95,6 +95,18 @@ class Helper {
     public static function findCategoryNameById($id) {
         $category = \App\Models\Category\Category::findCategoryById($id);
         return $category->name;
+    }
+    
+    
+    /**
+     * findPurchaseByOrderId()
+     *
+     * @param  Integer  $id 
+     * @return Category Collection
+     */
+    public static function findPurchaseByOrderId($id) {
+        $purchases = \App\Models\Purchase\Purchase::findPurchaseByOrderId($id);
+        return $purchases;
     }
 
 }

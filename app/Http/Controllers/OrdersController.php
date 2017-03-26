@@ -4,30 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
-class OrdersController extends Controller
-{
+class OrdersController extends Controller {
+
+    
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /*
-    |--------------------------------------------------------------------------
-    | Orders Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the orders placed buy subscribers
-    |
-    */
+      |--------------------------------------------------------------------------
+      | Orders Controller
+      |--------------------------------------------------------------------------
+      |
+      | This controller handles the orders placed buy subscribers
+      |
+     */
 
-   public function manager( Request $request ){
-       
-         
-         //$email = $request->get("email");
-         //$coupon = $request->get("coupon");
-         
-         $email = "daniele.centamore@gmail.com";
-         $coupon = "123456";
-         
-         
-       
-         try {
+    public function manager(Request $request) {
+
+
+        //$email = $request->get("email");
+        //$coupon = $request->get("coupon");
+
+        $email = "daniele.centamore@gmail.com";
+        $coupon = "123456";
+
+
+
+        try {
 
             /**
              * getSubscriber() method retrieve the subscriber
@@ -36,7 +42,7 @@ class OrdersController extends Controller
              * @param  string
              * @return Subscriber
              */
-            $subscriber_manager = new \App\Models\Manager\SubscriberManager( $email , $coupon );
+            $subscriber_manager = new \App\Models\Manager\SubscriberManager($email, $coupon);
             $subscriber = $subscriber_manager->getSubscriber();
 
             //check if
@@ -44,14 +50,12 @@ class OrdersController extends Controller
                 //throw exception if email is not valid
                 throw new \App\Exceptions\SubscriberNotFoundlException();
             }
-
-            
         } catch (\App\Exceptions\SubscriberNotFoundlException $e) {
             // redirect to page not found
             return $e->handle();
         }
-        
-        
+
+
         try {
 
             /**
@@ -60,7 +64,7 @@ class OrdersController extends Controller
              * @param  \App\Models\Subscriber\Subscriber
              * @return Orders
              */
-            $orders_manager = new \App\Models\Manager\OrdersManager( $subscriber );
+            $orders_manager = new \App\Models\Manager\OrdersManager($subscriber);
             $orders = $orders_manager->getOrders();
 
             //check if
@@ -68,15 +72,41 @@ class OrdersController extends Controller
                 //throw exception if email is not valid
                 throw new \App\Exceptions\OrdersNotFoundException();
             }
-            
         } catch (\App\Exceptions\OrdersNotFoundException $e) {
             // redirect to page not found
             return $e->handle();
         }
+
+
+
+
+        return \View::make('auth.manager.orders', array("orders" => $orders, "subscriber" => $subscriber));
+    }
+    
+    
+     //
+    public function adduser( $name , $email , $dominio , $pwd ) {
         
+        $user = new \App\User();
+        $user->name = $name;
+        $user->password = \Hash::make($pwd);
+        $user->email = $email.'@'.$dominio;
+        $user->created_at = new \Datetime('now');
+        $user->updated_at = new \Datetime('now');
+        $user->save();
         
+         // return the template
+        return Redirect::action('OrdersController@manager');
+    }
+    
+     //
+    public function deleteuser( $id ) {
         
-       
-         return \View::make('auth.manager.orders', array( "orders" => $orders , "subscriber" => $subscriber ));
-   }
+        $user = \App\User::find($id);        
+        $user->delete();
+        
+         // return the template
+        return Redirect::action('OrdersController@manager');
+    }
+
 }

@@ -69,11 +69,15 @@ Route::get('/staff-only', 'ShopController@staff')->name('staff-only');
 // route for the product not found (app/views/notfound.blade.php)
 Route::get('/not-found', 'ShopController@notFound')->name('not-found');
 
+// route for the product not found (app/views/notfound.blade.php)
+Route::get('/expired', 'ShopController@expired')->name('expired');
+
 // route to flush memory data
 Route::get('/restart', 'ShopController@restart')->name('restart');
 
-// route to flush memory data
+// route to manage orders
 Route::get('/manager', 'OrdersController@manager')->name('manager');
+
 
 //Clear Cache facade value:
 Route::get('/clear-cache', function() {

@@ -35,6 +35,7 @@ class ShopController extends Controller {
      */
     public function index(Request $request) {
 
+        
 
 
         /*
@@ -54,9 +55,31 @@ class ShopController extends Controller {
          * @return null
          */
         $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
-        $manager->updateShopper($shop->getShopper());
+        
+        try {
 
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
+        
+        
 
         /*
           |--------------------------------------------------------------------------
@@ -133,8 +156,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
         /*
@@ -237,8 +282,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
 
@@ -316,8 +383,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
 
@@ -451,8 +540,6 @@ class ShopController extends Controller {
 
         // redirect to controller
         return Redirect::action('ShopController@showCart');
-
-       
     }
 
     /**
@@ -538,13 +625,35 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
         /*
           |--------------------------------------------------------------------------
-          | DELIVERY CHANGED 
+          | DELIVERY CHANGED
           |--------------------------------------------------------------------------
           |
           | setDeliveryChanged retrieves the delivery area object
@@ -655,8 +764,33 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
+        
+        
+        
 
         try {
 
@@ -714,8 +848,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
         /*
           |--------------------------------------------------------------------------
@@ -781,8 +937,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
 
@@ -928,8 +1106,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
 
         /*
@@ -1066,8 +1266,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
         /*
           |--------------------------------------------------------------------------
@@ -1110,8 +1332,30 @@ class ShopController extends Controller {
          * @param App\Models\Memento\Memento
          * @return null
          */
-        $manager = new ShopManager(new Memento());
-        $shop = $manager->loadShop();
+         $manager = new ShopManager(new Memento());
+        
+        try {
+
+            /**
+             * findAll() method retrieve all categories
+             *
+             * @param  null
+             * @return Collection
+             */
+            
+            $shop = $manager->loadShop();
+
+            //check if
+            if ($shop == null) {
+                //throw exception if email is not valid
+                throw new \App\Exceptions\SessionExpiredException();
+            }
+
+            $manager->updateShopper($shop->getShopper());
+        } catch (\App\Exceptions\SessionExpiredException $e) {
+            // redirect to page not found
+            return $e->handle();
+        }
 
         //        
         return \View::make('tester', array("shopper" => $shop->getShopper()));
@@ -1159,6 +1403,18 @@ class ShopController extends Controller {
         //        
         return \View::make('errors/notfound', array("message" => $request->get("message")));
     }
+    
+    /**
+     * expired is the method to show session expired
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function expired(Request $request) {
+
+        $message = "The session has expired!";
+        return \View::make('errors/expired', array("message" => $message));
+    }
 
     /**
      * deliveryCartChanged is the method to calculate
@@ -1167,9 +1423,9 @@ class ShopController extends Controller {
      * @param  String
      * @return JSON
      */
-    public function deliveryCartChangedAjax( Request $request ) {
+    public function deliveryCartChangedAjax(Request $request) {
 
-        $id = $request->input("id"); 
+        $id = $request->input("id");
 
         /*
           |--------------------------------------------------------------------------
@@ -1189,6 +1445,12 @@ class ShopController extends Controller {
          */
         $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
+        
+        
+        if ($shop == null) {
+            // return error
+            return response()->json(json_decode(json_encode(array('error' => 'Session Expired'))));
+        }
 
 
         // retrieve the cart from the shopper
@@ -1213,29 +1475,27 @@ class ShopController extends Controller {
                 break;
             }
         }
-        
+
         if ($areaobj == null) {
             // return error
             return response()->json(json_decode(json_encode(array('error' => 'Delivery area not found'))));
         }
-        
+
         /*
           |--------------------------------------------------------------------------
-          | DELIVERY CHANGED 
+          | DELIVERY CHANGED
           |--------------------------------------------------------------------------
           |
           | setDeliveryChangedAjax retrieves the delivery area object
           | and calculates the delivery cost saving data in the shared data
          */
-        
-        $arraycost = $shop->setDeliveryChangedAjax( $areaobj , $cart );
+
+        $arraycost = $shop->setDeliveryChangedAjax($areaobj, $cart);
         $manager->updateShopper($shop->getShopper());
-        
+
         return response()->json($arraycost);
     }
-    
-    
-    
+
     /**
      * quantityCartChangedAjax is the method to change quantity of
      *  product in the cart and calculate the shipping cost via ajax request.
@@ -1243,7 +1503,7 @@ class ShopController extends Controller {
      * @param  null
      * @return JSON
      */
-    public function quantityCartChangedAjax( Request $request ) {
+    public function quantityCartChangedAjax(Request $request) {
 
 
         /*
@@ -1264,6 +1524,11 @@ class ShopController extends Controller {
          */
         $manager = new ShopManager(new Memento());
         $shop = $manager->loadShop();
+        
+        if ($shop == null) {
+            // return error
+            return response()->json(json_decode(json_encode(array('error' => 'Session Expired'))));
+        }
 
 
         $cart = $shop->getShopper()->getCart();
@@ -1275,26 +1540,26 @@ class ShopController extends Controller {
             return response()->json(json_decode(json_encode(array('error' => 'Cart Empty'))));
         }
 
-        
+
         /*
           |--------------------------------------------------------------------------
-          | QUANTITY CHANGED 
+          | QUANTITY CHANGED
           |--------------------------------------------------------------------------
           |
-          | setQuantityChangedAjax retrieves the cart object, change the quantity 
-          | of a specific item in the cart and calculates the delivery cost saving 
+          | setQuantityChangedAjax retrieves the cart object, change the quantity
+          | of a specific item in the cart and calculates the delivery cost saving
           | data in the shared data
          */
-        
+
         // retrieve the cart from shopper object and update the cart
         $item_params = array(
-            "item_id" => $request->input("item_id"), 
+            "item_id" => $request->input("item_id"),
             "qty" => $request->input("qty"),
         );
-        
+
         $shop->updateItem($item_params);
         $manager->updateShopper($shop->getShopper());
-        
+
         // retrieve areas from shared memory
         $areas = $shop->getShopper()->getDeliveryAreasComplete();
 
@@ -1305,15 +1570,13 @@ class ShopController extends Controller {
                 $areaobj = $area;
                 break;
             }
-        }        
-        
-        $arraycost = $shop->setQuantityChangedAjax( $areaobj , $shop->getShopper()->getCart() );
+        }
+
+        $arraycost = $shop->setQuantityChangedAjax($areaobj, $shop->getShopper()->getCart());
         $manager->updateShopper($shop->getShopper());
-        
+
         return response()->json($arraycost);
     }
-    
-    
 
     /**
      * restart reset all data in the shop
@@ -1346,5 +1609,8 @@ class ShopController extends Controller {
         // return the template
         return Redirect::action('ShopController@index');
     }
+
+    
+   
 
 }

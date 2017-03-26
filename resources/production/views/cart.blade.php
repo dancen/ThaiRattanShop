@@ -227,11 +227,15 @@
                 id: area_id
             },
             success: function (json) {
-                $("#delivery-area-ajax").text(json.delivery_area);
-                $("#delivery-cost-ajax").text(json.delivery_cost);
-                $("#cart-total2-ajax").text(json.cart_total);
-                $("#grand-total-ajax").text(json.grand_total);
-                $('#checkout-button').prop('disabled',false);
+                 if (json.error != null) {
+                      location.replace("{!!route("expired")!!}");
+                } else {
+                    $("#delivery-area-ajax").text(json.delivery_area);
+                    $("#delivery-cost-ajax").text(json.delivery_cost);
+                    $("#cart-total2-ajax").text(json.cart_total);
+                    $("#grand-total-ajax").text(json.grand_total);
+                    $('#checkout-button').prop('disabled',false);
+                }
             },
             error: function (msg) {
                 console.log('#error');
@@ -253,15 +257,19 @@
                 qty: q
             },
             success: function (json) {
-                $("#delivery-area-ajax").text(json.delivery_area);
-                $("#delivery-cost-ajax").text(json.delivery_cost);
-                $("#cart-total1-ajax").text(json.cart_total);
-                $("#cart-total2-ajax").text(json.cart_total);
-                $("#grand-total-ajax").text(json.grand_total);
-                $("#cart-total-price-list-ajax").text(json.cart_total_price_list);
-                $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
-                $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
-                $('#checkout-button').prop('disabled',false);
+                 if (json.error != null) {
+                      location.replace("{!!route("expired")!!}");
+                } else {
+                    $("#delivery-area-ajax").text(json.delivery_area);
+                    $("#delivery-cost-ajax").text(json.delivery_cost);
+                    $("#cart-total1-ajax").text(json.cart_total);
+                    $("#cart-total2-ajax").text(json.cart_total);
+                    $("#grand-total-ajax").text(json.grand_total);
+                    $("#cart-total-price-list-ajax").text(json.cart_total_price_list);
+                    $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
+                    $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
+                    $('#checkout-button').prop('disabled',false);
+                }
             },
             error: function (msg) {
                 console.log('#error');
