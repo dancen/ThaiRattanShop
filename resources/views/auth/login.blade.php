@@ -19,6 +19,8 @@
                 <h1 class="h2 space-bottom-half">Please, Staff Only!</h1>
 
                 <br>
+                
+                <a href="">Order Manager</a>
 
                 <form class="form-horizontal" class="container padding-top-3x padding-bottom-2x" role="form" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}

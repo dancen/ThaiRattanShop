@@ -17,5 +17,9 @@ class OrdersRepository extends BaseOrders
         return parent::whereId($id)->first();
     }
     
+    public static function findByEmail( $email ){
+        return parent::whereEmail($email)->get();
+    }
+    
       
 }

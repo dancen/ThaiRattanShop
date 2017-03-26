@@ -72,6 +72,9 @@ Route::get('/not-found', 'ShopController@notFound')->name('not-found');
 // route to flush memory data
 Route::get('/restart', 'ShopController@restart')->name('restart');
 
+// route to flush memory data
+Route::get('/manager', 'OrdersController@manager')->name('manager');
+
 //Clear Cache facade value:
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');

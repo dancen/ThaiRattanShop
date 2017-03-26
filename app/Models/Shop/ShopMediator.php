@@ -43,7 +43,12 @@ class ShopMediator {
         return $facade_delivery;
     }
 
-    // return the shopper
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
 
         return $this->shopper;
@@ -195,8 +200,8 @@ class ShopMediator {
     /**
      * setDeliveryAreaId - set the id to the shopper object
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return null
+     * @param  integer
+     * @return ShopDeliveryFacade
      */
     public function setDeliveryChanged($delivery_area_id = null) {
 

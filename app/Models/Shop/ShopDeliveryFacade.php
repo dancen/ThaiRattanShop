@@ -15,6 +15,13 @@ class ShopDeliveryFacade {
         $this->shopper = $shopper;
     }
     
+    
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
         return $this->shopper;
     }
@@ -24,7 +31,7 @@ class ShopDeliveryFacade {
      * initDeliveryCost() - set the initial delivery cost in shopper object
      *
      * @param  null
-     * @return $this
+     * @return ShopDeliveryFacade
      */
     public function initDeliveryCost() {
 
@@ -44,8 +51,8 @@ class ShopDeliveryFacade {
     /**
      * load the delivery areas 
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return null
+     * @param  null
+     * @return ShopDeliveryFacade
      */
     public function loadDeliveryAreas() {
 
@@ -96,8 +103,8 @@ class ShopDeliveryFacade {
     /**
      * setDeliveryAreaId - set the id to the shopper object
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return null
+     * @param  null
+     * @return ShopDeliveryFacade
      */
     public function setDeliveryAreaId() {
 
@@ -157,8 +164,8 @@ class ShopDeliveryFacade {
     /**
      * setDeliveryAreaId - set the id to the shopper object
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return null
+     * @param  integer
+     * @return ShopDeliveryFacade
      */
     public function setDeliveryChanged($delivery_area_id = null) {
 

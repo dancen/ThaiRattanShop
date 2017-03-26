@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-class OrdersNotFoundException extends \Exception {
+class OrderNotFoundException extends \Exception {
 
      public function handle() {
      //error message
-      $message = "Error! Orders Not Found. Please contact Thai Rattan!";
+      $message = "Error in your session! The Order data cannot be updated. Please contact Thai Rattan!";
       return \View::make('errors/notfound' , array( "message" => $message));
   }
 }

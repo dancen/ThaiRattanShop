@@ -15,6 +15,12 @@ class ShopCartFacade {
         $this->shopper = $shopper;
     }
     
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
         return $this->shopper;
     }
@@ -23,8 +29,8 @@ class ShopCartFacade {
     /**
      * updateCart() - update Cart adding a product
      *
-     * @param  null
-     * @return $this
+     * @param  array
+     * @return ShopCartFacade
      */
     public function updateCart($update_params) {
 
@@ -154,8 +160,8 @@ class ShopCartFacade {
     /**
      * removeCart - remove the Item from Cart and update the shopper object
      *
-     * @param  null
-     * @return null
+     * @param  integer
+     * @return ShopCartFacade
      */
     public function removeItem($item_id) {
 
@@ -171,8 +177,8 @@ class ShopCartFacade {
     /**
      * removeCart - remove the Item from Cart and update the shopper object
      *
-     * @param  null
-     * @return null
+     * @param  array
+     * @return ShopCartFacade
      */
     public function updateItem($item_params) {
 

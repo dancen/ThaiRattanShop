@@ -14,7 +14,8 @@ class SubscriberRepository extends BaseSubscriber implements  SubscriberInterfac
     
     public static function findSubscriberByEmail( $email ){
        return parent::whereEmail($email)->first();
-    }
+    }    
+    
     
      public function getCouponType(){}
       

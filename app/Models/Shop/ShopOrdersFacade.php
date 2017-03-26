@@ -15,6 +15,14 @@ class ShopOrdersFacade {
         $this->shopper = $shopper;
     }
     
+    
+    
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
         return $this->shopper;
     }
@@ -24,7 +32,7 @@ class ShopOrdersFacade {
      * setOrder - set the order in the shopper object
      *
      * @param  null
-     * @return null
+     * @return ShopOrdersFacade
      */
     public function setLastOrder() {
 
@@ -41,7 +49,7 @@ class ShopOrdersFacade {
      * such as paypal and return a transaction code
      *
      * @param  null
-     * @return null
+     * @return ShopOrdersFacade
      */
     public function setPaymentCode() {
 
@@ -57,8 +65,8 @@ class ShopOrdersFacade {
     /**
      * buildOrder - build the order and set last id in the shopper object
      *
-     * @param  null
-     * @return null
+     * @param  array
+     * @return ShopOrdersFacade
      */
     public function buildOrder($order_params) {
 
@@ -129,7 +137,7 @@ class ShopOrdersFacade {
      * finalizeOrder - complete and update the order in the shopper object
      *
      * @param  null
-     * @return null
+     * @return ShopOrdersFacade
      */
     public function finalizeOrder() {
 
@@ -168,7 +176,7 @@ class ShopOrdersFacade {
      * updateCoupon - update the coupon 
      *
      * @param  null
-     * @return null
+     * @return ShopOrdersFacade
      */
     public function updateCoupon() {
 
@@ -196,7 +204,7 @@ class ShopOrdersFacade {
      * savePurchase - save the purchase 
      *
      * @param  null
-     * @return null
+     * @return ShopOrdersFacade
      */
     public function savePurchase() {
 

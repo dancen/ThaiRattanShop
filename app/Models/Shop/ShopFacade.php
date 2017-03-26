@@ -16,7 +16,12 @@ class ShopFacade {
     }
 
     
-
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
         return $this->shopper;
     }
@@ -24,10 +29,10 @@ class ShopFacade {
    
 
     /**
-     * setDiscount() - set discount in shopper object
+     * initDiscount() - set discount in shopper object
      *
      * @param  null
-     * @return $this
+     * @return ShopFacade
      */
     public function initDiscount() {
 
@@ -57,7 +62,7 @@ class ShopFacade {
      * resetShopper - unset the cart in the shopper object
      *
      * @param  null
-     * @return null
+     * @return ShopFacade
      */
     public function resetShopper() {
 

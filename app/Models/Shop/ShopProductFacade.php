@@ -15,6 +15,13 @@ class ShopProductFacade {
         $this->shopper = $shopper;
     }
     
+    
+    /**
+     * getShopper() - set discount in shopper object
+     *
+     * @param  null
+     * @return Shopper
+     */
     public function getShopper() {
         return $this->shopper;
     }
@@ -68,8 +75,8 @@ class ShopProductFacade {
     /**
      * setCategory() - get category by slug
      *
-     * @param  null
-     * @return $this
+     * @param  String
+     * @return ShopProductFacade
      */
     public function setCategory($slug) {
 
@@ -93,7 +100,7 @@ class ShopProductFacade {
      * setProducts() - get products by category id 
      *
      * @param  null
-     * @return $this
+     * @return ShopProductFacade
      */
     public function setProducts() {
 
@@ -118,8 +125,8 @@ class ShopProductFacade {
     /**
      * setProduct() - get product by slug
      *
-     * @param  null
-     * @return $this
+     * @param  String
+     * @return ShopProductFacade
      */
     public function setProduct($slug) {
 
@@ -140,8 +147,8 @@ class ShopProductFacade {
     /**
      * populateProduct() - set product properties
      *
-     * @param  null
-     * @return $this
+     * @param  array
+     * @return ShopProductFacade
      */
     public function populateProduct($product_params) {
 
