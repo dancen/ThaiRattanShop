@@ -449,9 +449,10 @@ class ShopController extends Controller {
           |
          */
 
+        // redirect to controller
+        return Redirect::action('ShopController@showCart');
 
-        // return the template
-        return \View::make('cart', array("shopper" => $shop->getShopper()));
+       
     }
 
     /**

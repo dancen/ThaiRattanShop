@@ -186,7 +186,10 @@
 
                     {{ Form::open(array('url' => '/cart-checkout','method'=>'GET')) }}
 
-                    {{ Form::submit('Checkout', array('class' => 'btn btn-info btn-lg btn-block')) }}
+                    {{ Form::submit('Checkout', array(
+                                'id' => 'checkout-button',
+                                'class' => 'btn btn-info btn-lg btn-block'
+                                )) }}
 
                     {{ Form::close() }}
 
@@ -215,6 +218,7 @@
 
     function calculateShippingCost(area_id) {
 
+        $('#checkout-button').prop('disabled',true);
         
         $.ajax({
             url: '{!!route("cart-delivery-changed")!!}',
@@ -226,18 +230,22 @@
                 $("#delivery-area-ajax").text(json.delivery_area);
                 $("#delivery-cost-ajax").text(json.delivery_cost);
                 $("#cart-total2-ajax").text(json.cart_total);
-                $("#grand-total-ajax").text(json.grand_total);
+                $("#grand-total-ajax").text(json.grand_total);  
+                $('#checkout-button').prop('disabled',false);
             },
             error: function (msg) {
                 alert('error');
             },
         });
+        
+       
 
     }
 
 
     function updateQuantity( id , q ) {
 
+        $('#checkout-button').prop('disabled',true);
         
         $.ajax({
             url: '{!!route("cart-quantity-changed")!!}',
@@ -255,6 +263,7 @@
                 $("#cart-total-price-list-ajax").text(json.cart_total_price_list);
                 $("#number-of-items-cart-ajax").text(json.cart_number_of_items);
                 $("#number-of-items-navbar-ajax").text(json.cart_number_of_items);
+                $('#checkout-button').prop('disabled',false);
             },
             error: function (msg) {
                 alert("error");
