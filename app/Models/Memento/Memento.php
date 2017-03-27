@@ -52,7 +52,7 @@ class Memento extends AppMemento implements MementoInterface {
 
      /*
       |--------------------------------------------------------------------------
-      | DELETE DATA TO CACHE
+      | DELETE DATA FROM CACHE
       |--------------------------------------------------------------------------
       |
       |

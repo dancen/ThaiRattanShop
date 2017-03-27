@@ -3,6 +3,7 @@
 namespace App\Models\Shop;
 
 use App\Models\Shop\Shopper;
+use App\Models\Shop\ShopMediatorInterface;
 
 // this class manage shop tasks related to delivery
 
@@ -10,9 +11,9 @@ class ShopDeliveryFacade {
 
     private $shopper;
 
-    public function __construct( Shopper $shopper ) {
+    public function __construct( ShopMediatorInterface $mediator ) {
 
-        $this->shopper = $shopper;
+        $this->shopper = $mediator->getShopper();
     }
     
     
